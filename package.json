@@ -1,0 +1,8 @@
+{
+  "name": "react-inline-editable-monorepo",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.27.0",
+  "scripts": {
+    "build": "pnpm --filter react-inline-editable build"
+  }
+}
