@@ -1,5 +1,5 @@
 import "./App.css";
-import InlineEditable from "./index";
+import { InlineEditable } from "@/index";
 
 function App() {
   return (

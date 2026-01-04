@@ -28,4 +28,9 @@ export default defineConfig({
     sourcemap: true,
     copyPublicDir: false,
   },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
+  },
 });

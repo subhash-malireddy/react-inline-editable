@@ -1,9 +1,3 @@
-// Main library entry point
-// TODO: Create your InlineEditable component and export it here
+import InlineEditable from "@/components/inline-editable/InlineEditable";
 
-// Example placeholder export:
-const InlineEditable = () => {
-  return <div>InlineEditable Component - Coming Soon</div>;
-};
-
-export default InlineEditable;
+export { InlineEditable };
