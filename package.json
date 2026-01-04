@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "packageManager": "pnpm@10.27.0",
   "scripts": {
-    "build": "pnpm --filter react-inline-editable build"
+    "build": "pnpm --filter react-inline-editable build",
+    "dev": "pnpm --filter react-inline-editable dev"
   }
 }
