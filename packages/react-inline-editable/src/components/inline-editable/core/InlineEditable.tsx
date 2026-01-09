@@ -75,11 +75,11 @@ function Preview<T extends PreviewElement = "span">({
   // Helper to compose user handler with our handler
   const composeHandler = <E,>(
     userHandler: ((e: E) => void) | undefined,
-    ourHandler: () => void
+    externalHandler: () => void
   ) => {
     return (e: E) => {
       userHandler?.(e);
-      ourHandler();
+      externalHandler();
     };
   };
 
