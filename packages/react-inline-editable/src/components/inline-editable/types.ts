@@ -49,3 +49,23 @@ export type InlineEditPreviewProps<T extends PreviewElement = "span"> =
  */
 export type InlineEditWriteProps<T extends EditElement = "input"> =
   InlineEditWriteBaseProps & PolymorphicProps<T>;
+
+export type TriggerElement = ElementType;
+
+/**
+ * Props for trigger components (EditTrigger, SubmitTrigger, CancelTrigger).
+ * Defaults to rendering as `<button>`. Use `as` prop to change element type.
+ */
+export type TriggerProps<T extends TriggerElement = "button"> = {
+  children: ReactNode;
+} & PolymorphicProps<T>;
+
+/**
+ * Props for InlineEdit.Controls component.
+ * Simple wrapper for grouping triggers.
+ */
+export interface ControlsWrapperProps {
+  children: ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}

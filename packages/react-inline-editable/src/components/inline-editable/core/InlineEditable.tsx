@@ -12,6 +12,9 @@ import type {
   PreviewElement,
   EditElement,
   ActivationMode,
+  TriggerElement,
+  TriggerProps,
+  ControlsWrapperProps,
 } from "../types";
 
 // ============================================================================
@@ -165,12 +168,154 @@ function Write<T extends EditElement = "input">({
 }
 
 // ============================================================================
+// InlineEditable.EditTrigger
+// ============================================================================
+
+/**
+ * Explicit trigger to enter edit mode.
+ * Polymorphic - defaults to `<button>`, use `as` prop to change.
+ * Only visible when NOT in edit mode.
+ *
+ * @example
+ * <InlineEditable.EditTrigger>Edit</InlineEditable.EditTrigger>
+ */
+function EditTrigger<T extends TriggerElement = "button">({
+  as,
+  children,
+  onClick,
+  ...props
+}: TriggerProps<T>) {
+  const { isEditing, startEditing } = useInlineEditContext();
+
+  if (isEditing) {
+    return null;
+  }
+
+  const Component = as || "button";
+
+  const handleClick = (e: React.MouseEvent) => {
+    onClick?.(e as React.MouseEvent<HTMLButtonElement>);
+    startEditing();
+  };
+
+  return createElement(
+    Component as ElementType,
+    { ...props, onClick: handleClick },
+    children
+  );
+}
+
+// ============================================================================
+// InlineEditable.SubmitTrigger
+// ============================================================================
+
+/**
+ * Trigger to commit changes and exit edit mode.
+ * Polymorphic - defaults to `<button>`, use `as` prop to change.
+ * Only visible when in edit mode.
+ *
+ * @example
+ * <InlineEditable.SubmitTrigger>Save</InlineEditable.SubmitTrigger>
+ */
+function SubmitTrigger<T extends TriggerElement = "button">({
+  as,
+  children,
+  onClick,
+  ...props
+}: TriggerProps<T>) {
+  const { isEditing, submit } = useInlineEditContext();
+
+  if (!isEditing) {
+    return null;
+  }
+
+  const Component = as || "button";
+
+  const handleClick = (e: React.MouseEvent) => {
+    onClick?.(e as React.MouseEvent<HTMLButtonElement>);
+    submit();
+  };
+
+  return createElement(
+    Component as ElementType,
+    { ...props, onClick: handleClick },
+    children
+  );
+}
+
+// ============================================================================
+// InlineEditable.CancelTrigger
+// ============================================================================
+
+/**
+ * Trigger to revert changes and exit edit mode.
+ * Polymorphic - defaults to `<button>`, use `as` prop to change.
+ * Only visible when in edit mode.
+ *
+ * @example
+ * <InlineEditable.CancelTrigger>Cancel</InlineEditable.CancelTrigger>
+ */
+function CancelTrigger<T extends TriggerElement = "button">({
+  as,
+  children,
+  onClick,
+  ...props
+}: TriggerProps<T>) {
+  const { isEditing, cancel } = useInlineEditContext();
+
+  if (!isEditing) {
+    return null;
+  }
+
+  const Component = as || "button";
+
+  const handleClick = (e: React.MouseEvent) => {
+    onClick?.(e as React.MouseEvent<HTMLButtonElement>);
+    cancel();
+  };
+
+  return createElement(
+    Component as ElementType,
+    { ...props, onClick: handleClick },
+    children
+  );
+}
+
+// ============================================================================
+// InlineEditable.Controls
+// ============================================================================
+
+/**
+ * Layout wrapper for grouping Submit/Cancel triggers.
+ * Only visible when in edit mode.
+ *
+ * @example
+ * <InlineEditable.Controls className="flex gap-2">
+ *   <InlineEditable.SubmitTrigger>Save</InlineEditable.SubmitTrigger>
+ *   <InlineEditable.CancelTrigger>Cancel</InlineEditable.CancelTrigger>
+ * </InlineEditable.Controls>
+ */
+function ControlsWrapper({ children, className, style }: ControlsWrapperProps) {
+  const { isEditing } = useInlineEditContext();
+
+  if (!isEditing) {
+    return null;
+  }
+
+  return createElement("div", { className, style }, children);
+}
+
+// ============================================================================
 // Compound Component Export
 // ============================================================================
 
 export const InlineEditable = Object.assign(InlineEditableRoot, {
   Preview,
   Write,
+  EditTrigger,
+  SubmitTrigger,
+  CancelTrigger,
+  Controls: ControlsWrapper,
 });
 
 export default InlineEditable;
