@@ -1,3 +1,3 @@
-import InlineEditable from "@/components/inline-editable/InlineEditable";
+import InlineEditable from "@/components/inline-editable/core/InlineEditable";
 
 export { InlineEditable };
