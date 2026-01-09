@@ -24,8 +24,6 @@ export interface InlineEditPreviewBaseProps {
 export interface InlineEditWriteBaseProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLElement>) => void;
-  /** Maximum number of characters allowed */
-  maxLength?: number;
 }
 
 /**
