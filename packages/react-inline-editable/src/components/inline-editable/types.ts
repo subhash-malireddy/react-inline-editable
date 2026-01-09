@@ -15,10 +15,20 @@ export type PolymorphicProps<T extends ElementType> = {
 export type PreviewElement = ElementType;
 export type EditElement = ElementType;
 
+/**
+ * Available activation modes for entering edit mode.
+ * - "click": Single click to edit
+ * - "dblclick": Double click to edit
+ * - "enter": Enter/Space key to edit (keyboard accessible)
+ * - "none": No automatic activation (programmatic control only)
+ */
+export const ACTIVATION_MODES = ["click", "dblclick", "enter", "none"] as const;
+export type ActivationMode = (typeof ACTIVATION_MODES)[number];
+
 export interface InlineEditPreviewBaseProps {
   children: ReactNode;
-  /** How the user enters edit mode. Default: "focus" */
-  activationMode?: "focus" | "click" | "dblclick" | "none";
+  /** How the user enters edit mode. Default: ["click", "enter"] */
+  activationMode?: ActivationMode[];
 }
 
 export interface InlineEditWriteBaseProps {
