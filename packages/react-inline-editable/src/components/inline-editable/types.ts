@@ -18,7 +18,7 @@ export type EditElement = ElementType;
 export interface InlineEditPreviewBaseProps {
   children: ReactNode;
   /** How the user enters edit mode. Default: "focus" */
-  activationMode?: "focus" | "click" | "dblclick";
+  activationMode?: "focus" | "click" | "dblclick" | "none";
 }
 
 export interface InlineEditWriteBaseProps {
