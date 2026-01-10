@@ -21,7 +21,7 @@ export type PreviewElement = ElementType;
 export type EditElement = "input" | "select" | "textarea";
 
 /**
- * Available activation modes for entering edit mode.
+ * Available activation modes for entering write mode.
  * - "click": Single click to edit
  * - "dblclick": Double click to edit
  * - "enter": Enter/Space key to edit (keyboard accessible)
@@ -29,6 +29,15 @@ export type EditElement = "input" | "select" | "textarea";
  */
 export const ACTIVATION_MODES = ["click", "dblclick", "enter", "none"] as const;
 export type ActivationMode = (typeof ACTIVATION_MODES)[number];
+
+/**
+ * Available deactivation modes for exiting write mode.
+ * - "blur": Blur triggers save() and exits
+ * - "esc": Escape key triggers cancel() and exits
+ * - "none": No automatic deactivation (must use SaveTrigger/CancelTrigger)
+ */
+export const DEACTIVATION_MODES = ["blur", "esc", "none"] as const;
+export type DeactivationMode = (typeof DEACTIVATION_MODES)[number];
 
 export interface InlineEditPreviewBaseProps {
   children: ReactNode;
@@ -48,6 +57,8 @@ type EditElementMap = {
 export interface InlineEditWriteBaseProps<T extends EditElement = "input"> {
   value: string;
   onChange: (event: React.ChangeEvent<EditElementMap[T]>) => void;
+  /** How the user exits write mode. Default: ["blur", "esc"] */
+  deactivationMode?: DeactivationMode[];
 }
 
 /**

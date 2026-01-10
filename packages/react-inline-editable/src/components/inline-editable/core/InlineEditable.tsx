@@ -12,6 +12,7 @@ import type {
   PreviewElement,
   EditElement,
   ActivationMode,
+  DeactivationMode,
   TriggerElement,
   TriggerProps,
   ControlsWrapperProps,
@@ -125,7 +126,7 @@ function Preview<T extends PreviewElement = "span">({
 // ============================================================================
 
 /**
- * Displays the editable input when in edit mode.
+ * Displays the editable input when in write mode.
  * Polymorphic - defaults to `<input>`, use `as` prop to change.
  * Auto-focuses on mount via callback ref.
  *
@@ -134,15 +135,19 @@ function Preview<T extends PreviewElement = "span">({
  *   as="textarea"
  *   value={value}
  *   onChange={(e) => setValue(e.target.value)}
+ *   deactivationMode={["esc"]} // Only Escape exits, blur does nothing
  *   rows={3}
  * />
  */
+const DEFAULT_DEACTIVATION_MODES: DeactivationMode[] = ["blur", "esc"];
+
 function Write<T extends EditElement = "input">({
   as,
   value,
   onChange,
   onKeyDown,
   onBlur,
+  deactivationMode = DEFAULT_DEACTIVATION_MODES,
   ...props
 }: InlineEditWriteProps<T>) {
   const { isEditing, save, cancel, setInputRef } = useInlineEditContext();
@@ -162,17 +167,20 @@ function Write<T extends EditElement = "input">({
   }
 
   const Component = as || "input";
+  const modes = new Set(deactivationMode);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     (onKeyDown as ((e: KeyboardEvent) => void) | undefined)?.(e);
-    if (e.key === "Escape") {
+    if (modes.has("esc") && e.key === "Escape") {
       cancel();
     }
   };
 
   const handleBlur = (e: React.FocusEvent) => {
     (onBlur as ((e: React.FocusEvent) => void) | undefined)?.(e);
-    save();
+    if (modes.has("blur")) {
+      save();
+    }
   };
 
   return createElement(Component as ElementType, {
