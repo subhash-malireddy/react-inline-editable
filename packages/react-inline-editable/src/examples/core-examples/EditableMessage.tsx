@@ -93,6 +93,9 @@ export function EditableMessage() {
             }}
             className="box-border w-full min-h-20 p-2 border border-gray-300 rounded-lg
                        outline-none bg-white resize-y font-[inherit] text-inherit leading-relaxed"
+            name="editable-message"
+            rows={4}
+            style={{ width: "100%", resize: "vertical" }}
           />
 
           <InlineEditable.Controls className="flex gap-2 mt-3 justify-end">
