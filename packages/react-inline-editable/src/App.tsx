@@ -6,6 +6,7 @@ import { WithExplicitControls } from "./examples/core-examples/WithExplicitContr
 import { HeadingExample } from "./examples/core-examples/HeadingExample";
 import { TextareaExample } from "./examples/core-examples/TextareaExample";
 import { DoubleClickMode } from "./examples/core-examples/DoubleClickMode";
+import { EditableMessage } from "./examples/core-examples/EditableMessage";
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
 
       <section style={{ marginTop: "2rem" }}>
         <DoubleClickMode />
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <EditableMessage />
       </section>
     </div>
   );
