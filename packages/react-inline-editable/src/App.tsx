@@ -14,8 +14,8 @@ function App() {
       <header className="mb-12 pb-8 border-b border-border">
         <h1 className="text-rust-dark">React Inline Editable</h1>
         <p className="text-text-muted text-lg">
-          A headless, zero-dependency React component library for inline
-          editing.
+          Minimalistic, polymorphic, and zero-dependency inline editing
+          primitives with sensible defaults.
         </p>
       </header>
 
