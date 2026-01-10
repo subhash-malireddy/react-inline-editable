@@ -34,9 +34,17 @@ export type ActivationMode = (typeof ACTIVATION_MODES)[number];
  * Available deactivation modes for exiting write mode.
  * - "blur": Blur triggers save() and exits
  * - "esc": Escape key triggers cancel() and exits
+ * - "enter": Enter key triggers save() and exits (recommended for inputs)
+ * - "cmd+enter": Cmd/Ctrl+Enter triggers save() and exits (recommended for textareas)
  * - "none": No automatic deactivation (must use SaveTrigger/CancelTrigger)
  */
-export const DEACTIVATION_MODES = ["blur", "esc", "none"] as const;
+export const DEACTIVATION_MODES = [
+  "blur",
+  "esc",
+  "enter",
+  "cmd+enter",
+  "none",
+] as const;
 export type DeactivationMode = (typeof DEACTIVATION_MODES)[number];
 
 export interface InlineEditPreviewBaseProps {
@@ -57,7 +65,11 @@ type EditElementMap = {
 export interface InlineEditWriteBaseProps<T extends EditElement = "input"> {
   value: string;
   onChange: (event: React.ChangeEvent<EditElementMap[T]>) => void;
-  /** How the user exits write mode. Default: ["blur", "esc"] */
+  /**
+   * How the user exits write mode.
+   * Default for input/select: ["blur", "esc", "enter"]
+   * Default for textarea: ["blur", "esc", "cmd+enter"]
+   */
   deactivationMode?: DeactivationMode[];
 }
 

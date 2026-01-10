@@ -130,6 +130,10 @@ function Preview<T extends PreviewElement = "span">({
  * Polymorphic - defaults to `<input>`, use `as` prop to change.
  * Auto-focuses on mount via callback ref.
  *
+ * Default deactivation modes are component-aware:
+ * - input/select: ["blur", "esc", "enter"] - Enter saves
+ * - textarea: ["blur", "esc", "cmd+enter"] - Cmd/Ctrl+Enter saves (Enter = newline)
+ *
  * @example
  * <InlineEditable.Write
  *   as="textarea"
@@ -139,7 +143,16 @@ function Preview<T extends PreviewElement = "span">({
  *   rows={3}
  * />
  */
-const DEFAULT_DEACTIVATION_MODES: DeactivationMode[] = ["blur", "esc"];
+const DEFAULT_DEACTIVATION_MODES_INPUT: DeactivationMode[] = [
+  "blur",
+  "esc",
+  "enter",
+];
+const DEFAULT_DEACTIVATION_MODES_TEXTAREA: DeactivationMode[] = [
+  "blur",
+  "esc",
+  "cmd+enter",
+];
 
 function Write<T extends EditElement = "input">({
   as,
@@ -147,10 +160,21 @@ function Write<T extends EditElement = "input">({
   onChange,
   onKeyDown,
   onBlur,
-  deactivationMode = DEFAULT_DEACTIVATION_MODES,
+  deactivationMode,
   ...props
 }: InlineEditWriteProps<T>) {
   const { isEditing, save, cancel, setInputRef } = useInlineEditContext();
+
+  const Component = as || "input";
+  const isTextarea = Component === "textarea";
+
+  // Use component-aware defaults if not specified
+  const resolvedModes =
+    deactivationMode ??
+    (isTextarea
+      ? DEFAULT_DEACTIVATION_MODES_TEXTAREA
+      : DEFAULT_DEACTIVATION_MODES_INPUT);
+  const modes = new Set(resolvedModes);
 
   // Callback ref for auto-focus and connecting to context
   const refCallback = (
@@ -166,13 +190,28 @@ function Write<T extends EditElement = "input">({
     return null;
   }
 
-  const Component = as || "input";
-  const modes = new Set(deactivationMode);
-
   const handleKeyDown = (e: KeyboardEvent) => {
     (onKeyDown as ((e: KeyboardEvent) => void) | undefined)?.(e);
+
     if (modes.has("esc") && e.key === "Escape") {
       cancel();
+      return;
+    }
+
+    if (e.key === "Enter") {
+      // Cmd/Ctrl+Enter always saves if mode is enabled
+      if (modes.has("cmd+enter") && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        save();
+        return;
+      }
+
+      // Plain Enter saves if mode is enabled (not for textarea typically)
+      if (modes.has("enter") && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        save();
+        return;
+      }
     }
   };
 
