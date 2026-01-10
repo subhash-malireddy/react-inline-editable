@@ -130,18 +130,23 @@ function Preview<T extends PreviewElement = "span">({
  * Polymorphic - defaults to `<input>`, use `as` prop to change.
  * Auto-focuses on mount via callback ref.
  *
+ * Supports both controlled and uncontrolled patterns:
+ * - Controlled: pass `value` + `onChange` for real-time access
+ * - Uncontrolled: pass `defaultValue` (optional), value read from DOM on save
+ *
  * Default deactivation modes are component-aware:
  * - input/select: ["blur", "esc", "enter"] - Enter saves
  * - textarea: ["blur", "esc", "cmd+enter"] - Cmd/Ctrl+Enter saves (Enter = newline)
  *
  * @example
+ * // Controlled
  * <InlineEditable.Write
- *   as="textarea"
  *   value={value}
  *   onChange={(e) => setValue(e.target.value)}
- *   deactivationMode={["esc"]} // Only Escape exits, blur does nothing
- *   rows={3}
  * />
+ *
+ * // Uncontrolled
+ * <InlineEditable.Write defaultValue="Initial text" />
  */
 const DEFAULT_DEACTIVATION_MODES_INPUT: DeactivationMode[] = [
   "blur",
@@ -158,6 +163,7 @@ function Write<T extends EditElement = "input">({
   as,
   value,
   onChange,
+  defaultValue,
   onKeyDown,
   onBlur,
   deactivationMode,
@@ -222,11 +228,14 @@ function Write<T extends EditElement = "input">({
     }
   };
 
+  // Build value props based on controlled vs uncontrolled mode
+  const isControlled = value !== undefined;
+  const valueProps = isControlled ? { value, onChange } : { defaultValue };
+
   return createElement(Component as ElementType, {
     ...props,
+    ...valueProps,
     ref: refCallback,
-    value,
-    onChange,
     onKeyDown: handleKeyDown,
     onBlur: handleBlur,
   });

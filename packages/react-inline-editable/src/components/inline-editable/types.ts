@@ -56,15 +56,16 @@ export interface InlineEditPreviewBaseProps {
 /**
  * Maps edit element tags to their corresponding HTML element types.
  */
-type EditElementMap = {
+export type EditElementMap = {
   input: HTMLInputElement;
   select: HTMLSelectElement;
   textarea: HTMLTextAreaElement;
 };
 
-export interface InlineEditWriteBaseProps<T extends EditElement = "input"> {
-  value: string;
-  onChange: (event: React.ChangeEvent<EditElementMap[T]>) => void;
+/**
+ * Common props for Write component (shared by controlled and uncontrolled modes).
+ */
+export interface InlineEditWriteCommonProps {
   /**
    * How the user exits write mode.
    * Default for input/select: ["blur", "esc", "enter"]
@@ -74,18 +75,41 @@ export interface InlineEditWriteBaseProps<T extends EditElement = "input"> {
 }
 
 /**
+ * Controlled mode: value + onChange required.
+ * Use when you need real-time access to the value.
+ */
+export type InlineEditWriteControlledProps<T extends EditElement = "input"> = {
+  value: string;
+  onChange: (event: React.ChangeEvent<EditElementMap[T]>) => void;
+  defaultValue?: never;
+};
+
+/**
+ * Uncontrolled mode: defaultValue optional, no onChange needed.
+ * Value is read from DOM on save via inputRef.
+ */
+export type InlineEditWriteUncontrolledProps = {
+  defaultValue?: string;
+  value?: never;
+  onChange?: never;
+};
+
+/**
+ * Props for InlineEdit.Write component.
+ * Supports both controlled (value + onChange) and uncontrolled (defaultValue) patterns.
+ * Defaults to rendering as `<input>`. Use `as` prop to change element type.
+ */
+export type InlineEditWriteProps<T extends EditElement = "input"> =
+  InlineEditWriteCommonProps &
+    (InlineEditWriteControlledProps<T> | InlineEditWriteUncontrolledProps) &
+    Omit<PolymorphicProps<T>, "value" | "onChange" | "defaultValue">;
+
+/**
  * Props for InlineEdit.Preview component.
  * Defaults to rendering as `<span>`. Use `as` prop to change element type.
  */
 export type InlineEditPreviewProps<T extends PreviewElement = "span"> =
   InlineEditPreviewBaseProps & PolymorphicProps<T>;
-
-/**
- * Props for InlineEdit.Write component.
- * Defaults to rendering as `<input>`. Use `as` prop to change element type.
- */
-export type InlineEditWriteProps<T extends EditElement = "input"> =
-  InlineEditWriteBaseProps<T> & PolymorphicProps<T>;
 
 export type TriggerElement = ElementType;
 
