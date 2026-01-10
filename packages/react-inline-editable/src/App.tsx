@@ -1,5 +1,6 @@
 import "./App.css";
 import { BasicControlled } from "./examples/core-examples/BasicControlled";
+import { BasicUncontrolled } from "./examples/core-examples/BasicUncontrolled";
 import { WithEditTrigger } from "./examples/core-examples/WithEditTrigger";
 import { WithExplicitControls } from "./examples/core-examples/WithExplicitControls";
 import { HeadingExample } from "./examples/core-examples/HeadingExample";
@@ -13,6 +14,10 @@ function App() {
 
       <section style={{ marginTop: "2rem" }}>
         <BasicControlled />
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <BasicUncontrolled />
       </section>
 
       <section style={{ marginTop: "2rem" }}>
