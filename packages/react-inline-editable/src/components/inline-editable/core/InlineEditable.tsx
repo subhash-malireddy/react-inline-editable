@@ -66,7 +66,7 @@ function Preview<T extends PreviewElement = "span">({
   activationMode = DEFAULT_ACTIVATION_MODES,
   ...props
 }: InlineEditPreviewProps<T>) {
-  const { isEditing, startEditing } = useInlineEditContext();
+  const { isEditing, enterWriteMode } = useInlineEditContext();
 
   if (isEditing) {
     return null;
@@ -91,13 +91,13 @@ function Preview<T extends PreviewElement = "span">({
   const computedProps: Record<string, unknown> = { ...restProps };
 
   if (modes.has("click")) {
-    computedProps.onClick = composeHandler(onClick, startEditing);
+    computedProps.onClick = composeHandler(onClick, enterWriteMode);
   } else {
     computedProps.onClick = onClick;
   }
 
   if (modes.has("dblclick")) {
-    computedProps.onDoubleClick = composeHandler(onDoubleClick, startEditing);
+    computedProps.onDoubleClick = composeHandler(onDoubleClick, enterWriteMode);
   } else {
     computedProps.onDoubleClick = onDoubleClick;
   }
@@ -107,7 +107,7 @@ function Preview<T extends PreviewElement = "span">({
       onKeyDown?.(e);
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        startEditing();
+        enterWriteMode();
       }
     };
     // Make focusable for keyboard navigation
@@ -141,12 +141,17 @@ function Write<T extends EditElement = "input">({
   as,
   value,
   onChange,
+  onKeyDown,
+  onBlur,
   ...props
 }: InlineEditWriteProps<T>) {
-  const { isEditing, stopEditing } = useInlineEditContext();
+  const { isEditing, save, cancel, setInputRef } = useInlineEditContext();
 
-  // Callback ref for auto-focus
-  const autoFocusRef = (element: HTMLElement | null) => {
+  // Callback ref for auto-focus and connecting to context
+  const refCallback = (
+    element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
+  ) => {
+    setInputRef(element);
     if (element) {
       element.focus();
     }
@@ -158,12 +163,25 @@ function Write<T extends EditElement = "input">({
 
   const Component = as || "input";
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    (onKeyDown as ((e: KeyboardEvent) => void) | undefined)?.(e);
+    if (e.key === "Escape") {
+      cancel();
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent) => {
+    (onBlur as ((e: React.FocusEvent) => void) | undefined)?.(e);
+    save();
+  };
+
   return createElement(Component as ElementType, {
     ...props,
-    ref: autoFocusRef,
+    ref: refCallback,
     value,
     onChange,
-    onBlur: stopEditing,
+    onKeyDown: handleKeyDown,
+    onBlur: handleBlur,
   });
 }
 
@@ -185,7 +203,7 @@ function EditTrigger<T extends TriggerElement = "button">({
   onClick,
   ...props
 }: TriggerProps<T>) {
-  const { isEditing, startEditing } = useInlineEditContext();
+  const { isEditing, enterWriteMode } = useInlineEditContext();
 
   if (isEditing) {
     return null;
@@ -195,7 +213,7 @@ function EditTrigger<T extends TriggerElement = "button">({
 
   const handleClick = (e: React.MouseEvent) => {
     onClick?.(e as React.MouseEvent<HTMLButtonElement>);
-    startEditing();
+    enterWriteMode();
   };
 
   return createElement(
@@ -206,24 +224,24 @@ function EditTrigger<T extends TriggerElement = "button">({
 }
 
 // ============================================================================
-// InlineEditable.SubmitTrigger
+// InlineEditable.SaveTrigger
 // ============================================================================
 
 /**
- * Trigger to commit changes and exit edit mode.
+ * Trigger to save changes and exit write mode.
  * Polymorphic - defaults to `<button>`, use `as` prop to change.
- * Only visible when in edit mode.
+ * Only visible when in write mode.
  *
  * @example
- * <InlineEditable.SubmitTrigger>Save</InlineEditable.SubmitTrigger>
+ * <InlineEditable.SaveTrigger>Save</InlineEditable.SaveTrigger>
  */
-function SubmitTrigger<T extends TriggerElement = "button">({
+function SaveTrigger<T extends TriggerElement = "button">({
   as,
   children,
   onClick,
   ...props
 }: TriggerProps<T>) {
-  const { isEditing, submit } = useInlineEditContext();
+  const { isEditing, save } = useInlineEditContext();
 
   if (!isEditing) {
     return null;
@@ -233,7 +251,7 @@ function SubmitTrigger<T extends TriggerElement = "button">({
 
   const handleClick = (e: React.MouseEvent) => {
     onClick?.(e as React.MouseEvent<HTMLButtonElement>);
-    submit();
+    save();
   };
 
   return createElement(
@@ -313,7 +331,7 @@ export const InlineEditable = Object.assign(InlineEditableRoot, {
   Preview,
   Write,
   EditTrigger,
-  SubmitTrigger,
+  SaveTrigger,
   CancelTrigger,
   Controls: ControlsWrapper,
 });

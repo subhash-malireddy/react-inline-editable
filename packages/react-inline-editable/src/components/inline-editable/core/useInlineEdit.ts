@@ -1,72 +1,95 @@
 import { useCallback, useRef, useState } from "react";
 
 export interface UseInlineEditOptions {
-  /** Optional callback when entering edit mode */
-  onStartEditing?: () => void;
-  /** Optional callback when exiting edit mode */
-  onStopEditing?: () => void;
-  /** Optional callback when submit is triggered */
-  onSubmit?: () => void;
-  /** Optional callback when cancel is triggered */
+  /**
+   * Callback when entering write mode.
+   * Use cases: focus management, disable other UI elements, track analytics.
+   */
+  onEnterWriteMode?: () => void;
+  /**
+   * Callback when exiting write mode (always called, regardless of save/cancel).
+   * Use cases: re-enable UI elements, cleanup, restore focus to preview.
+   */
+  onExitWriteMode?: () => void;
+  /** Callback when saving - receives current value from input ref */
+  onSave?: (value: string) => void;
+  /** Callback when cancelling - use to revert controlled state to previous value */
   onCancel?: () => void;
 }
 
 export interface UseInlineEditReturn {
-  /** Whether currently in edit mode */
+  /** Whether currently in write mode */
   isEditing: boolean;
-  /** Enter edit mode */
-  startEditing: () => void;
-  /** Exit edit mode */
-  stopEditing: () => void;
-  /** Submit changes and exit edit mode */
-  submit: () => void;
-  /** Cancel changes and exit edit mode */
+  /** Enter write mode */
+  enterWriteMode: () => void;
+  /** Exit write mode (no save/cancel action) */
+  exitWriteMode: () => void;
+  /** Save changes and exit write mode */
+  save: () => void;
+  /** Cancel changes and exit write mode */
   cancel: () => void;
-  /** Ref to attach to the editable input for focus management */
-  inputRef: React.RefObject<HTMLElement | null>;
+  /** Ref callback to attach to the editable input */
+  setInputRef: (
+    element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
+  ) => void;
 }
 
 /**
  * Hook that manages inline editing state.
- * Consumer controls value - this hook only handles edit mode transitions.
+ * Supports both controlled and uncontrolled inputs.
  *
  * @example
- * const { isEditing, startEditing, stopEditing, inputRef } = useInlineEdit();
+ * const { isEditing, enterWriteMode, save, cancel, setInputRef } = useInlineEdit({
+ *   onSave: (value) => console.log('Saved:', value),
+ *   onCancel: () => console.log('Cancelled'),
+ * });
  */
 export function useInlineEdit(
   options: UseInlineEditOptions = {}
 ): UseInlineEditReturn {
-  const { onStartEditing, onStopEditing, onSubmit, onCancel } = options;
+  const { onEnterWriteMode, onExitWriteMode, onSave, onCancel } = options;
 
   const [isEditing, setIsEditing] = useState(false);
-  const inputRef = useRef<HTMLElement | null>(null);
+  const inputElementRef = useRef<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
+  >(null);
 
-  const startEditing = useCallback(() => {
+  const setInputRef = useCallback(
+    (
+      element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
+    ) => {
+      inputElementRef.current = element;
+    },
+    []
+  );
+
+  const enterWriteMode = useCallback(() => {
     setIsEditing(true);
-    onStartEditing?.();
-  }, [onStartEditing]);
+    onEnterWriteMode?.();
+  }, [onEnterWriteMode]);
 
-  const stopEditing = useCallback(() => {
+  const exitWriteMode = useCallback(() => {
     setIsEditing(false);
-    onStopEditing?.();
-  }, [onStopEditing]);
+    onExitWriteMode?.();
+  }, [onExitWriteMode]);
 
-  const submit = useCallback(() => {
-    onSubmit?.();
-    stopEditing();
-  }, [onSubmit, stopEditing]);
+  const save = useCallback(() => {
+    const value = inputElementRef.current?.value ?? "";
+    onSave?.(value);
+    exitWriteMode();
+  }, [onSave, exitWriteMode]);
 
   const cancel = useCallback(() => {
     onCancel?.();
-    stopEditing();
-  }, [onCancel, stopEditing]);
+    exitWriteMode();
+  }, [onCancel, exitWriteMode]);
 
   return {
     isEditing,
-    startEditing,
-    stopEditing,
-    submit,
+    enterWriteMode,
+    exitWriteMode,
+    save,
     cancel,
-    inputRef,
+    setInputRef,
   };
 }

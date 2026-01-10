@@ -13,7 +13,12 @@ export type PolymorphicProps<T extends ElementType> = {
 } & ComponentPropsWithoutRef<T>;
 
 export type PreviewElement = ElementType;
-export type EditElement = ElementType;
+
+/**
+ * Elements that support the change event.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+ */
+export type EditElement = "input" | "select" | "textarea";
 
 /**
  * Available activation modes for entering edit mode.
@@ -31,9 +36,18 @@ export interface InlineEditPreviewBaseProps {
   activationMode?: ActivationMode[];
 }
 
-export interface InlineEditWriteBaseProps {
+/**
+ * Maps edit element tags to their corresponding HTML element types.
+ */
+type EditElementMap = {
+  input: HTMLInputElement;
+  select: HTMLSelectElement;
+  textarea: HTMLTextAreaElement;
+};
+
+export interface InlineEditWriteBaseProps<T extends EditElement = "input"> {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+  onChange: (event: React.ChangeEvent<EditElementMap[T]>) => void;
 }
 
 /**
@@ -48,7 +62,7 @@ export type InlineEditPreviewProps<T extends PreviewElement = "span"> =
  * Defaults to rendering as `<input>`. Use `as` prop to change element type.
  */
 export type InlineEditWriteProps<T extends EditElement = "input"> =
-  InlineEditWriteBaseProps & PolymorphicProps<T>;
+  InlineEditWriteBaseProps<T> & PolymorphicProps<T>;
 
 export type TriggerElement = ElementType;
 

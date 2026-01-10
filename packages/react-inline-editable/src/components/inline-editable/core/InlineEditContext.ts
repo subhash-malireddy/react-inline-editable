@@ -1,18 +1,20 @@
-import { createContext, useContext, type RefObject } from "react";
+import { createContext, useContext } from "react";
 
 export interface InlineEditContextValue {
-  /** Whether currently in edit mode */
+  /** Whether currently in write mode */
   isEditing: boolean;
-  /** Enter edit mode */
-  startEditing: () => void;
-  /** Exit edit mode */
-  stopEditing: () => void;
-  /** Submit changes and exit edit mode */
-  submit: () => void;
-  /** Cancel changes and exit edit mode */
+  /** Enter write mode */
+  enterWriteMode: () => void;
+  /** Exit write mode (no save/cancel action) */
+  exitWriteMode: () => void;
+  /** Save changes and exit write mode */
+  save: () => void;
+  /** Cancel changes and exit write mode */
   cancel: () => void;
-  /** Ref to attach to the editable input for focus management */
-  inputRef: RefObject<HTMLElement | null>;
+  /** Ref callback to attach to the editable input */
+  setInputRef: (
+    element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
+  ) => void;
 }
 
 const InlineEditContext = createContext<InlineEditContextValue | null>(null);
