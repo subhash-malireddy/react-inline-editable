@@ -7,6 +7,6 @@
     "emitDeclarationOnly": false,
     "outDir": "./dist"
   },
-  "include": ["src/index.tsx"]
+  "include": ["src/index.tsx", "src/components/**/*.ts", "src/components/**/*.tsx"]
 }
 
