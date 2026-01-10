@@ -4,6 +4,7 @@ import { WithEditTrigger } from "./examples/core-examples/WithEditTrigger";
 import { WithExplicitControls } from "./examples/core-examples/WithExplicitControls";
 import { HeadingExample } from "./examples/core-examples/HeadingExample";
 import { TextareaExample } from "./examples/core-examples/TextareaExample";
+import { DoubleClickMode } from "./examples/core-examples/DoubleClickMode";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
 
       <section style={{ marginTop: "2rem" }}>
         <TextareaExample />
+      </section>
+
+      <section style={{ marginTop: "2rem" }}>
+        <DoubleClickMode />
       </section>
     </div>
   );
