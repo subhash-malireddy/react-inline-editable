@@ -57,7 +57,7 @@ export function EditableMessage() {
         only the EditTrigger activates edit mode.
       </p>
 
-      <div className="group relative p-3 px-4 bg-gray-100 rounded-xl max-w-[600px] min-h-12">
+      <div className="group relative p-3 px-4 bg-[#b6b6af] rounded-xl max-w-[600px] min-h-12">
         <InlineEditable
           onSave={(newValue) => {
             console.log("Message updated:", newValue);
@@ -108,8 +108,8 @@ export function EditableMessage() {
             </InlineEditable.CancelTrigger>
             <InlineEditable.SaveTrigger
               className="flex items-center gap-1 px-3 py-1.5 border-none rounded-md
-                         cursor-pointer text-sm bg-blue-600 text-white
-                         hover:bg-blue-700 transition-colors"
+                         cursor-pointer text-sm bg-text text-white
+                         hover:bg-text/80 transition-colors"
             >
               <CheckIcon /> Save
             </InlineEditable.SaveTrigger>
