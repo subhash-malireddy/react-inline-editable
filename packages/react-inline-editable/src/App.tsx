@@ -1,12 +1,12 @@
 import "./App.css";
-import { BasicControlled } from "./examples/core-examples/BasicControlled";
-import { BasicUncontrolled } from "./examples/core-examples/BasicUncontrolled";
-import { WithEditTrigger } from "./examples/core-examples/WithEditTrigger";
-import { WithExplicitControls } from "./examples/core-examples/WithExplicitControls";
-import { HeadingExample } from "./examples/core-examples/HeadingExample";
-import { TextareaExample } from "./examples/core-examples/TextareaExample";
-import { DoubleClickMode } from "./examples/core-examples/DoubleClickMode";
-import { EditableMessage } from "./examples/core-examples/EditableMessage";
+import { BasicControlled } from "./components/examples/BasicControlled";
+import { BasicUncontrolled } from "./components/examples/BasicUncontrolled";
+import { WithEditTrigger } from "./components/examples/WithEditTrigger";
+import { WithExplicitControls } from "./components/examples/WithExplicitControls";
+import { HeadingExample } from "./components/examples/HeadingExample";
+import { TextareaExample } from "./components/examples/TextareaExample";
+import { DoubleClickMode } from "./components/examples/DoubleClickMode";
+import { EditableMessage } from "./components/examples/EditableMessage";
 
 function App() {
   return (

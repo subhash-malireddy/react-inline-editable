@@ -1,4 +1,4 @@
-import InlineEditable from "@/components/inline-editable/core/InlineEditable";
+import { InlineEditable } from "@/index";
 import { useState } from "react";
 
 // ============================================================================

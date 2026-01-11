@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "description": "A React component for inline editing",
   "type": "module",
-  "main": "./dist/react-inline-editable.js",
-  "module": "./dist/react-inline-editable.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/react-inline-editable.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -20,7 +20,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -p ./tsconfig.build.json && vite build",
     "build:docs": "vite build --config vite.config.docs.ts",
     "preview:docs": "vite preview --outDir dist-docs",
     "lint": "eslint .",
