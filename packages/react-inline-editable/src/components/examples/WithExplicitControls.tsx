@@ -27,14 +27,48 @@ export function WithExplicitControls() {
           onExitWriteMode={() => console.log("Exited write mode")}
         >
           <InlineEditable.Preview>{value}</InlineEditable.Preview>
-          <InlineEditable.Write
-            name="explicit-controls-text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            deactivationMode={["none"]}
-          />
-          <InlineEditable.SaveTrigger>Save</InlineEditable.SaveTrigger>
-          <InlineEditable.CancelTrigger>Cancel</InlineEditable.CancelTrigger>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <InlineEditable.Write
+              name="explicit-controls-text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              deactivationMode={["none"]}
+            />
+            <InlineEditable.Controls style={{ display: "flex", gap: "0.5rem" }}>
+              <InlineEditable.CancelTrigger
+                className="px-3 py-1.5 border-none rounded-md cursor-pointer text-sm transition-colors"
+                style={{
+                  backgroundColor: "var(--color-cream-dark)",
+                  color: "var(--color-text)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-rust)";
+                  e.currentTarget.style.color = "white";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-cream-dark)";
+                  e.currentTarget.style.color = "var(--color-text)";
+                }}
+              >
+                Cancel
+              </InlineEditable.CancelTrigger>
+              <InlineEditable.SaveTrigger
+                className="px-3 py-1.5 border-none rounded-md cursor-pointer text-sm transition-colors"
+                style={{
+                  backgroundColor: "var(--color-rust-dark)",
+                  color: "white",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-rust)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-rust-dark)";
+                }}
+              >
+                Save
+              </InlineEditable.SaveTrigger>
+            </InlineEditable.Controls>
+          </div>
         </InlineEditable>
       </div>
     </div>
