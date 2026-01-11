@@ -22,7 +22,11 @@ export function WithEditTrigger() {
             <InlineEditable.Preview activationMode={["none"]}>
               {value}
             </InlineEditable.Preview>
-            <InlineEditable.EditTrigger>Edit</InlineEditable.EditTrigger>
+            <InlineEditable.EditTrigger
+              className="px-3 py-1.5 border-none rounded-md cursor-pointer text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+            >
+              Edit
+            </InlineEditable.EditTrigger>
           </span>
           <InlineEditable.Write
             name="trigger-text"
