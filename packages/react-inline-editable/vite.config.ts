@@ -21,6 +21,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "lib/index.ts"),
+      name: "react-inline-editable",
+      fileName: "index",
       formats: ["es"],
     },
     rollupOptions: {
