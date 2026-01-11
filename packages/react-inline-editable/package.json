@@ -1,6 +1,6 @@
 {
   "name": "react-inline-editable",
-  "version": "0.0.0",
+  "version": "0.0.1-rc.0",
   "description": "A React component for inline editing",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,8 +29,8 @@
     "prepublishOnly": "pnpm run build",
     "version:beta": "npm version prerelease --preid=beta --no-git-tag-version",
     "version:rc": "npm version prerelease --preid=rc --no-git-tag-version",
-    "publish:beta": "pnpm run version:beta && pnpm publish --tag beta",
-    "publish:rc": "pnpm run version:rc && pnpm publish --tag rc"
+    "publish:beta": "pnpm publish --tag beta",
+    "publish:rc": "pnpm publish --tag rc"
   },
   "keywords": [
     "react",
