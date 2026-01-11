@@ -14,15 +14,17 @@ export function BasicUncontrolled() {
         No <code>value</code> or <code>onChange</code> needed. The value is read
         from the DOM on save via <code>onSave</code> callback.
       </p>
-      <InlineEditable
-        onSave={(newValue) => {
-          console.log("Saved:", newValue);
-          setDisplayValue(newValue);
-        }}
-      >
-        <InlineEditable.Preview>{displayValue}</InlineEditable.Preview>
-        <InlineEditable.Write defaultValue={displayValue} />
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable
+          onSave={(newValue) => {
+            console.log("Saved:", newValue);
+            setDisplayValue(newValue);
+          }}
+        >
+          <InlineEditable.Preview>{displayValue}</InlineEditable.Preview>
+          <InlineEditable.Write defaultValue={displayValue} />
+        </InlineEditable>
+      </div>
     </div>
   );
 }

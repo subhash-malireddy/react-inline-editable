@@ -11,30 +11,32 @@ export function WithExplicitControls() {
         Use explicit Save and Cancel buttons. Blur and Escape do not exit write
         mode.
       </p>
-      <InlineEditable
-        onSave={(newValue) => {
-          console.log("Saved:", newValue);
-          prevValue.current = newValue;
-        }}
-        onCancel={() => {
-          console.log("Cancelled");
-          setValue(prevValue.current);
-        }}
-        onEnterWriteMode={() => {
-          console.log("Entered write mode");
-        }}
-        onExitWriteMode={() => console.log("Exited write mode")}
-      >
-        <InlineEditable.Preview>{value}</InlineEditable.Preview>
-        <InlineEditable.Write
-          name="explicit-controls-text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          deactivationMode={["none"]}
-        />
-        <InlineEditable.SaveTrigger>Save</InlineEditable.SaveTrigger>
-        <InlineEditable.CancelTrigger>Cancel</InlineEditable.CancelTrigger>
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable
+          onSave={(newValue) => {
+            console.log("Saved:", newValue);
+            prevValue.current = newValue;
+          }}
+          onCancel={() => {
+            console.log("Cancelled");
+            setValue(prevValue.current);
+          }}
+          onEnterWriteMode={() => {
+            console.log("Entered write mode");
+          }}
+          onExitWriteMode={() => console.log("Exited write mode")}
+        >
+          <InlineEditable.Preview>{value}</InlineEditable.Preview>
+          <InlineEditable.Write
+            name="explicit-controls-text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            deactivationMode={["none"]}
+          />
+          <InlineEditable.SaveTrigger>Save</InlineEditable.SaveTrigger>
+          <InlineEditable.CancelTrigger>Cancel</InlineEditable.CancelTrigger>
+        </InlineEditable>
+      </div>
     </div>
   );
 }

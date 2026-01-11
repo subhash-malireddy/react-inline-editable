@@ -16,19 +16,21 @@ export function WithEditTrigger() {
     <div>
       <h3>With Edit Trigger</h3>
       <p>Click the Edit button to enter edit mode.</p>
-      <InlineEditable>
-        <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <InlineEditable.Preview activationMode={["none"]}>
-            {value}
-          </InlineEditable.Preview>
-          <InlineEditable.EditTrigger>Edit</InlineEditable.EditTrigger>
-        </span>
-        <InlineEditable.Write
-          name="trigger-text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable>
+          <span style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <InlineEditable.Preview activationMode={["none"]}>
+              {value}
+            </InlineEditable.Preview>
+            <InlineEditable.EditTrigger>Edit</InlineEditable.EditTrigger>
+          </span>
+          <InlineEditable.Write
+            name="trigger-text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </InlineEditable>
+      </div>
     </div>
   );
 }

@@ -13,21 +13,23 @@ export function TextareaExample() {
         Use <code>as="textarea"</code> on Write for multi-line editing. Enter
         inserts newlines, Cmd/Ctrl+Enter saves.
       </p>
-      <InlineEditable onSave={() => console.log("Saved:", value)}>
-        <InlineEditable.Preview
-          style={{ whiteSpace: "pre-wrap", display: "block" }}
-        >
-          {value}
-        </InlineEditable.Preview>
-        <InlineEditable.Write
-          as="textarea"
-          name="textarea-text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          rows={4}
-          style={{ width: "100%", resize: "vertical" }}
-        />
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable onSave={() => console.log("Saved:", value)}>
+          <InlineEditable.Preview
+            style={{ whiteSpace: "pre-wrap", display: "block" }}
+          >
+            {value}
+          </InlineEditable.Preview>
+          <InlineEditable.Write
+            as="textarea"
+            name="textarea-text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            rows={4}
+            style={{ width: "100%", resize: "vertical" }}
+          />
+        </InlineEditable>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { EditableMessage } from "./components/examples/EditableMessage";
 function App() {
   return (
     <div className="min-h-screen px-6 py-12 max-w-3xl mx-auto">
-      <header className="mb-12 pb-8 border-b border-border">
+      <header className="mb-12 pb-4 border-b border-border">
         <h1 className="text-rust-dark">React Inline Editable</h1>
         <p className="text-text-muted text-lg">
           Minimalistic, polymorphic, and zero-dependency inline editing
@@ -19,36 +19,36 @@ function App() {
         </p>
       </header>
 
-      <main className="space-y-12">
-        <section>
+      <main className="space-y-16">
+        <section className="example-section">
           <BasicControlled />
         </section>
 
-        <section>
+        <section className="example-section">
           <BasicUncontrolled />
         </section>
 
-        <section>
+        <section className="example-section">
           <WithEditTrigger />
         </section>
 
-        <section>
+        <section className="example-section">
           <WithExplicitControls />
         </section>
 
-        <section>
+        <section className="example-section">
           <HeadingExample />
         </section>
 
-        <section>
+        <section className="example-section">
           <TextareaExample />
         </section>
 
-        <section>
+        <section className="example-section">
           <DoubleClickMode />
         </section>
 
-        <section>
+        <section className="example-section">
           <EditableMessage />
         </section>
       </main>

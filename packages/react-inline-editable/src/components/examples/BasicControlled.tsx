@@ -16,14 +16,16 @@ export function BasicControlled() {
     <div>
       <h3>Basic Controlled</h3>
       <p>Default activation: click or press Enter/Space when focused.</p>
-      <InlineEditable>
-        <InlineEditable.Preview>{value}</InlineEditable.Preview>
-        <InlineEditable.Write
-          name="basic-text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable>
+          <InlineEditable.Preview>{value}</InlineEditable.Preview>
+          <InlineEditable.Write
+            name="basic-text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </InlineEditable>
+      </div>
     </div>
   );
 }

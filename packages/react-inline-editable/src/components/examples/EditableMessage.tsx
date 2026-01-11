@@ -57,7 +57,10 @@ export function EditableMessage() {
         only the EditTrigger activates edit mode.
       </p>
 
-      <div className="group relative p-3 px-4 bg-[#b6b6af] rounded-xl max-w-[600px] min-h-12">
+      <div
+        className="group relative p-3 px-4 bg-[#b6b6af] rounded-xl max-w-[600px] min-h-12"
+        style={{ marginTop: "1.5rem" }}
+      >
         <InlineEditable
           onSave={(newValue) => {
             console.log("Message updated:", newValue);

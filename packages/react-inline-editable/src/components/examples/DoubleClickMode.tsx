@@ -12,16 +12,18 @@ export function DoubleClickMode() {
         double-click. Prevents accidental activation while keeping keyboard
         accessibility.
       </p>
-      <InlineEditable onSave={() => console.log("Saved:", value)}>
-        <InlineEditable.Preview activationMode={["dblclick", "enter"]}>
-          {value}
-        </InlineEditable.Preview>
-        <InlineEditable.Write
-          name="dblclick-text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </InlineEditable>
+      <div className="example-interactive">
+        <InlineEditable onSave={() => console.log("Saved:", value)}>
+          <InlineEditable.Preview activationMode={["dblclick", "enter"]}>
+            {value}
+          </InlineEditable.Preview>
+          <InlineEditable.Write
+            name="dblclick-text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </InlineEditable>
+      </div>
     </div>
   );
 }
