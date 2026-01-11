@@ -15,7 +15,7 @@ export function Installation() {
               fontSize: "0.9em",
             }}
           >
-            <code>npm install @subhash-malireddy/react-inline-editable</code>
+            <code>npm install @progressive-villager/react-inline-editable</code>
           </pre>
         </div>
         <div>
@@ -28,7 +28,7 @@ export function Installation() {
               fontSize: "0.9em",
             }}
           >
-            <code>pnpm add @subhash-malireddy/react-inline-editable</code>
+            <code>pnpm add @progressive-villager/react-inline-editable</code>
           </pre>
         </div>
         <div>
@@ -41,7 +41,7 @@ export function Installation() {
               fontSize: "0.9em",
             }}
           >
-            <code>yarn add @subhash-malireddy/react-inline-editable</code>
+            <code>yarn add @progressive-villager/react-inline-editable</code>
           </pre>
         </div>
         <div className="mt-6">
