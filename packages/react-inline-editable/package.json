@@ -15,6 +15,7 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "sideEffects": false,
@@ -25,7 +26,11 @@
     "preview:docs": "vite preview --outDir dist-docs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "version:beta": "npm version prerelease --preid=beta --no-git-tag-version",
+    "version:rc": "npm version prerelease --preid=rc --no-git-tag-version",
+    "publish:beta": "pnpm run version:beta && pnpm publish --tag beta",
+    "publish:rc": "pnpm run version:rc && pnpm publish --tag rc"
   },
   "keywords": [
     "react",
