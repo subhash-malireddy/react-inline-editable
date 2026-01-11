@@ -1,5 +1,5 @@
 {
-  "name": "react-inline-editable",
+  "name": "@subhash-malireddy/react-inline-editable",
   "version": "0.0.1-rc.0",
   "description": "A React component for inline editing",
   "type": "module",
@@ -19,6 +19,9 @@
     "LICENSE"
   ],
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -p ./tsconfig.build.json && vite build",

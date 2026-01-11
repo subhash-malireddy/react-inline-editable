@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of `react-inline-editable`
+- Initial release of `@subhash-malireddy/react-inline-editable`
 - `InlineEditable` compound component with flexible composition pattern
   - `InlineEditable.Preview` - Displays content when not in edit mode (polymorphic, defaults to `<span>`)
   - `InlineEditable.Write` - Input element for editing (polymorphic, defaults to `<input>`)
