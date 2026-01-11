@@ -1,6 +1,6 @@
 {
-  "name": "react-inline-editable",
-  "version": "0.1.0",
+  "name": "@progressive-villager/react-inline-editable",
+  "version": "0.0.1-rc.1",
   "description": "A React component for inline editing",
   "type": "module",
   "main": "./dist/index.js",
@@ -15,9 +15,13 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -p ./tsconfig.build.json && vite build",
@@ -26,24 +30,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "pnpm run build",
-    "version:patch": "npm version patch --no-git-tag-version",
-    "version:minor": "npm version minor --no-git-tag-version",
-    "version:major": "npm version major --no-git-tag-version",
     "version:beta": "npm version prerelease --preid=beta --no-git-tag-version",
-    "version:alpha": "npm version prerelease --preid=alpha --no-git-tag-version",
     "version:rc": "npm version prerelease --preid=rc --no-git-tag-version",
-    "version:beta:patch": "npm version prepatch --preid=beta --no-git-tag-version",
-    "version:beta:minor": "npm version preminor --preid=beta --no-git-tag-version",
-    "version:beta:major": "npm version premajor --preid=beta --no-git-tag-version",
-    "publish:patch": "pnpm run version:patch && pnpm publish",
-    "publish:minor": "pnpm run version:minor && pnpm publish",
-    "publish:major": "pnpm run version:major && pnpm publish",
-    "publish:beta": "pnpm run version:beta && pnpm publish --tag beta",
-    "publish:alpha": "pnpm run version:alpha && pnpm publish --tag alpha",
-    "publish:rc": "pnpm run version:rc && pnpm publish --tag rc",
-    "publish:beta:patch": "pnpm run version:beta:patch && pnpm publish --tag beta",
-    "publish:beta:minor": "pnpm run version:beta:minor && pnpm publish --tag beta",
-    "publish:beta:major": "pnpm run version:beta:major && pnpm publish --tag beta"
+    "publish:beta": "pnpm publish --tag beta",
+    "publish:rc": "pnpm publish --tag rc"
   },
   "keywords": [
     "react",

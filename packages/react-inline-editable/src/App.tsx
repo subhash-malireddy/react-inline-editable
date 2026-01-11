@@ -24,14 +24,6 @@ const navSections = [
     ],
   },
   {
-    title: "Guides",
-    items: [
-      { id: "layout-stability", label: "Layout Stability" },
-      { id: "trigger-composition", label: "Trigger Composition" },
-      { id: "accessibility", label: "Accessibility" },
-    ],
-  },
-  {
     title: "Examples",
     items: [
       { id: "basic-controlled", label: "Basic Controlled" },
@@ -42,6 +34,14 @@ const navSections = [
       { id: "textarea-example", label: "Textarea Example" },
       { id: "double-click-mode", label: "Double Click Mode" },
       { id: "custom-styling", label: "Custom Styling" },
+    ],
+  },
+  {
+    title: "Guides",
+    items: [
+      { id: "layout-stability", label: "Layout Stability" },
+      { id: "trigger-composition", label: "Trigger Composition" },
+      { id: "accessibility", label: "Accessibility" },
     ],
   },
   {
@@ -57,22 +57,6 @@ function App() {
         <Hero />
 
         <Installation />
-
-        <section id="guides" className="mb-16">
-          <h2
-            className="text-3xl font-bold mb-8"
-            style={{ color: "var(--color-rust-dark)" }}
-          >
-            Guides
-          </h2>
-          <div className="space-y-16">
-            <LayoutStability />
-
-            <TriggerComposition />
-
-            <Accessibility />
-          </div>
-        </section>
 
         <section id="examples" className="mb-16">
           <h2
@@ -113,6 +97,22 @@ function App() {
             <section id="custom-styling" className="example-section">
               <CustomStyling />
             </section>
+          </div>
+        </section>
+
+        <section id="guides" className="mb-16">
+          <h2
+            className="text-3xl font-bold mb-8"
+            style={{ color: "var(--color-rust-dark)" }}
+          >
+            Guides
+          </h2>
+          <div className="space-y-16">
+            <LayoutStability />
+
+            <TriggerComposition />
+
+            <Accessibility />
           </div>
         </section>
 

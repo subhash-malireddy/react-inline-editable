@@ -1,6 +1,6 @@
 # react-inline-editable
 
-A zero-dependency and unstyled React component library for inline editing with flexible composition patterns and senisible defaults.
+A zero-dependency and unstyled React component library for inline editing with flexible composition patterns and sensible defaults.
 
 ## Features
 
@@ -13,17 +13,17 @@ A zero-dependency and unstyled React component library for inline editing with f
 ## Installation
 
 ```bash
-npm install react-inline-editable
+npm install @progressive-villager/react-inline-editable
 # or
-pnpm add react-inline-editable
+pnpm add @progressive-villager/react-inline-editable
 # or
-yarn add react-inline-editable
+yarn add @progressive-villager/react-inline-editable
 ```
 
 ## Quick Start
 
 ```tsx
-import { InlineEditable } from "react-inline-editable";
+import { InlineEditable } from "@progressive-villager/react-inline-editable";
 
 function App() {
   const [value, setValue] = useState("Click to edit");
