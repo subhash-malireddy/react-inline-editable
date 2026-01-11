@@ -1,8 +1,9 @@
 import { InlineEditable } from "@/index";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function WithExplicitControls() {
   const [value, setValue] = useState("Click to edit this text");
+  const prevValue = useRef(value);
   return (
     <div>
       <h3>With Explicit Controls</h3>
@@ -11,10 +12,15 @@ export function WithExplicitControls() {
         mode.
       </p>
       <InlineEditable
-        onSave={() => console.log("Saved:", value)}
-        onCancel={() => console.log("Cancelled")}
+        onSave={(newValue) => {
+          console.log("Saved:", newValue);
+          prevValue.current = newValue;
+        }}
+        onCancel={() => {
+          console.log("Cancelled");
+          setValue(prevValue.current);
+        }}
         onEnterWriteMode={() => {
-          alert("check in console");
           console.log("Entered write mode");
         }}
         onExitWriteMode={() => console.log("Exited write mode")}

@@ -5,8 +5,9 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowImportingTsExtensions": false
   },
-  "include": ["src/index.tsx", "src/components/**/*.ts", "src/components/**/*.tsx"]
+  "include": ["lib"]
 }
 

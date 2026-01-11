@@ -16,7 +16,7 @@ import type {
   TriggerElement,
   TriggerProps,
   ControlsWrapperProps,
-} from "../types";
+} from "./types";
 
 // ============================================================================
 // InlineEditable Provider

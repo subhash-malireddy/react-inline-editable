@@ -20,9 +20,8 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.tsx"),
+      entry: resolve(__dirname, "lib/index.ts"),
       formats: ["es"],
-      fileName: () => "react-inline-editable.js",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],
