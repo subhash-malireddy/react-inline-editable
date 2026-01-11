@@ -1,6 +1,6 @@
 {
   "name": "@progressive-villager/react-inline-editable",
-  "version": "0.0.1-rc.0",
+  "version": "0.0.1-rc.1",
   "description": "A React component for inline editing",
   "type": "module",
   "main": "./dist/index.js",
