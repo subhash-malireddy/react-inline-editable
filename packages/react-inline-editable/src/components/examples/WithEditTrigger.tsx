@@ -23,7 +23,19 @@ export function WithEditTrigger() {
               {value}
             </InlineEditable.Preview>
             <InlineEditable.EditTrigger
-              className="px-3 py-1.5 border-none rounded-md cursor-pointer text-sm bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+              className="px-3 py-1.5 border-none rounded-md cursor-pointer text-sm transition-colors"
+              style={{
+                backgroundColor: "var(--color-cream-dark)",
+                color: "var(--color-text)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--color-rust)";
+                e.currentTarget.style.color = "white";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "var(--color-cream-dark)";
+                e.currentTarget.style.color = "var(--color-text)";
+              }}
             >
               Edit
             </InlineEditable.EditTrigger>

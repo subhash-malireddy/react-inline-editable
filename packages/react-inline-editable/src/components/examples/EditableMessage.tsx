@@ -43,81 +43,86 @@ const XIcon = () => (
   </svg>
 );
 
-export function EditableMessage() {
+export function CustomStyling() {
   const [message, setMessage] = useState(
     "This is like the Claude web app edit feature.\n\nHover to see the edit icon, click to edit your message."
   );
 
   return (
     <div>
-      <h3>Editable Message (Claude-style)</h3>
+      <h3>Custom Styling</h3>
       <p>
-        Combines layout stability with icon buttons. Hover or focus to reveal
-        edit icon (tabbable). Uses <code>activationMode={["none"]}</code> so
-        only the EditTrigger activates edit mode.
+        Demonstrates custom styling with layout stability and icon buttons.
+        Hover or focus to reveal edit icon (tabbable). Uses{" "}
+        <code>{'activationMode={["none"]}'}</code> so only the EditTrigger
+        activates edit mode.
       </p>
 
-      <div
-        className="group relative p-3 px-4 bg-[#b6b6af] rounded-xl max-w-[600px] min-h-12"
-        style={{ marginTop: "1.5rem" }}
-      >
-        <InlineEditable
-          onSave={(newValue) => {
-            console.log("Message updated:", newValue);
-            setMessage(newValue);
+      <div className="example-interactive">
+        <div
+          className="group relative p-3 px-4 rounded-xl max-w-[600px] min-h-12"
+          style={{
+            backgroundColor: "var(--color-cream-dark)",
           }}
         >
-          <InlineEditable.Preview
-            activationMode={["none"]}
-            className="block whitespace-pre-wrap leading-relaxed"
+          <InlineEditable
+            onSave={(newValue) => {
+              console.log("Message updated:", newValue);
+              setMessage(newValue);
+            }}
           >
-            {message}
-          </InlineEditable.Preview>
+            <InlineEditable.Preview
+              activationMode={["none"]}
+              className="block whitespace-pre-wrap leading-relaxed"
+            >
+              {message}
+            </InlineEditable.Preview>
 
-          <InlineEditable.EditTrigger
-            className="absolute top-2 right-2 p-1 bg-transparent border-none cursor-pointer rounded
+            <InlineEditable.EditTrigger
+              className="absolute top-2 right-2 p-1 bg-transparent border-none cursor-pointer rounded
                        opacity-0 transition-opacity duration-150
                        group-hover:opacity-60 group-focus-within:opacity-60
                        hover:opacity-100 hover:bg-black/5
                        focus:opacity-100 focus:bg-black/5"
-            title="Edit message"
-          >
-            <EditIcon />
-          </InlineEditable.EditTrigger>
+              title="Edit message"
+            >
+              <EditIcon />
+            </InlineEditable.EditTrigger>
 
-          <InlineEditable.Write
-            as="textarea"
-            defaultValue={message}
-            deactivationMode={["none"]}
-            onFocus={(e) => {
-              // Position cursor at end
-              const len = e.target.value.length;
-              e.target.selectionStart = e.target.selectionEnd = len;
-            }}
-            className="box-border w-full min-h-20 p-2 border border-gray-300 rounded-lg
+            <InlineEditable.Write
+              as="textarea"
+              defaultValue={message}
+              deactivationMode={["none"]}
+              onFocus={(e) => {
+                // Position cursor at end
+                const len = e.target.value.length;
+                e.target.selectionStart = e.target.selectionEnd = len;
+              }}
+              className="box-border w-full min-h-20 p-2 border border-gray-300 rounded-lg
                        outline-none bg-white resize-y font-[inherit] text-inherit leading-relaxed"
-            name="editable-message"
-            rows={4}
-            style={{ width: "100%", resize: "vertical" }}
-          />
+              name="editable-message"
+              rows={4}
+              style={{ width: "100%", resize: "vertical" }}
+            />
 
-          <InlineEditable.Controls className="flex gap-2 mt-3 justify-end">
-            <InlineEditable.CancelTrigger
-              className="flex items-center gap-1 px-3 py-1.5 border-none rounded-md
+            <InlineEditable.Controls className="flex gap-2 mt-3 justify-end">
+              <InlineEditable.CancelTrigger
+                className="flex items-center gap-1 px-3 py-1.5 border-none rounded-md
                          cursor-pointer text-sm bg-gray-200 text-gray-700
                          hover:bg-gray-300 transition-colors"
-            >
-              <XIcon /> Cancel
-            </InlineEditable.CancelTrigger>
-            <InlineEditable.SaveTrigger
-              className="flex items-center gap-1 px-3 py-1.5 border-none rounded-md
+              >
+                <XIcon /> Cancel
+              </InlineEditable.CancelTrigger>
+              <InlineEditable.SaveTrigger
+                className="flex items-center gap-1 px-3 py-1.5 border-none rounded-md
                          cursor-pointer text-sm bg-text text-white
                          hover:bg-text/80 transition-colors"
-            >
-              <CheckIcon /> Save
-            </InlineEditable.SaveTrigger>
-          </InlineEditable.Controls>
-        </InlineEditable>
+              >
+                <CheckIcon /> Save
+              </InlineEditable.SaveTrigger>
+            </InlineEditable.Controls>
+          </InlineEditable>
+        </div>
       </div>
     </div>
   );

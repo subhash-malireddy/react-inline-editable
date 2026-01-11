@@ -8,7 +8,7 @@ export function DoubleClickMode() {
     <div>
       <h3>Double Click Mode</h3>
       <p>
-        Use <code>activationMode={["dblclick", "enter"]}</code> to require
+        Use <code>{"activationMode={[\"dblclick\", \"enter\"]}"}</code> to require
         double-click. Prevents accidental activation while keeping keyboard
         accessibility.
       </p>

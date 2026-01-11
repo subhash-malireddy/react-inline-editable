@@ -5,8 +5,13 @@ interface NavItem {
   label: string;
 }
 
-interface DocsNavProps {
+interface NavSection {
+  title: string;
   items: NavItem[];
+}
+
+interface DocsNavProps {
+  sections: NavSection[];
 }
 
 // Function to handle smooth scrolling to a section
@@ -24,7 +29,7 @@ function scrollToSection(id: string) {
   }
 }
 
-export function DocsNav({ items }: DocsNavProps) {
+export function DocsNav({ sections }: DocsNavProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -44,7 +49,8 @@ export function DocsNav({ items }: DocsNavProps) {
 
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [isMobileMenuOpen]);
 
@@ -70,37 +76,40 @@ export function DocsNav({ items }: DocsNavProps) {
           >
             On this page
           </h2>
-          <div className="space-y-3">
-            <div>
-              <h3
-                className="text-xs font-semibold mb-2 uppercase tracking-wide"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                Examples
-              </h3>
-              <ul className="space-y-1">
-                {items.map((item) => (
-                  <li key={item.id}>
-                    <button
-                      onClick={() => handleNavClick(item.id)}
-                      className="w-full text-left px-3 py-2 rounded-md text-sm transition-colors"
-                      style={{ color: "var(--color-text-muted)" }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "var(--color-text)";
-                        e.currentTarget.style.backgroundColor =
-                          "var(--color-cream-dark)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "var(--color-text-muted)";
-                        e.currentTarget.style.backgroundColor = "transparent";
-                      }}
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="space-y-4">
+            {sections.map((section) => (
+              <div key={section.title}>
+                <h3
+                  className="text-xs font-semibold mb-2 uppercase tracking-wide"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  {section.title}
+                </h3>
+                <ul className="space-y-1">
+                  {section.items.map((item) => (
+                    <li key={item.id}>
+                      <button
+                        onClick={() => handleNavClick(item.id)}
+                        className="w-full text-left px-3 py-2 rounded-md text-sm transition-colors"
+                        style={{ color: "var(--color-text-muted)" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = "var(--color-text)";
+                          e.currentTarget.style.backgroundColor =
+                            "var(--color-cream-dark)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color =
+                            "var(--color-text-muted)";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                        }}
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </nav>
@@ -164,36 +173,40 @@ export function DocsNav({ items }: DocsNavProps) {
           >
             On this page
           </h2>
-          <div className="space-y-3">
-            <div>
-              <h3
-                className="text-xs font-semibold mb-2 uppercase tracking-wide"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                Examples
-              </h3>
-              <ul className="space-y-1">
-                {items.map((item) => (
-                  <li key={item.id}>
-                    <button
-                      onClick={() => handleNavClick(item.id)}
-                      className="w-full text-left px-3 py-2 rounded-md text-sm transition-colors"
-                      style={{ color: "var(--color-text-muted)" }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "var(--color-text)";
-                        e.currentTarget.style.backgroundColor = "var(--color-cream)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "var(--color-text-muted)";
-                        e.currentTarget.style.backgroundColor = "transparent";
-                      }}
-                    >
-                      {item.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="space-y-4">
+            {sections.map((section) => (
+              <div key={section.title}>
+                <h3
+                  className="text-xs font-semibold mb-2 uppercase tracking-wide"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  {section.title}
+                </h3>
+                <ul className="space-y-1">
+                  {section.items.map((item) => (
+                    <li key={item.id}>
+                      <button
+                        onClick={() => handleNavClick(item.id)}
+                        className="w-full text-left px-3 py-2 rounded-md text-sm transition-colors"
+                        style={{ color: "var(--color-text-muted)" }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = "var(--color-text)";
+                          e.currentTarget.style.backgroundColor =
+                            "var(--color-cream)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color =
+                            "var(--color-text-muted)";
+                          e.currentTarget.style.backgroundColor = "transparent";
+                        }}
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       )}
