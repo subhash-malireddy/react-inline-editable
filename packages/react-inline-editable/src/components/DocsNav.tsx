@@ -62,7 +62,7 @@ export function DocsNav({ sections }: DocsNavProps) {
   return (
     <>
       {/* Desktop Navigation - Fixed on the right */}
-      <nav className="hidden lg:block fixed top-24 right-8 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto">
+      <nav className="hidden lg:block fixed top-24 right-8 w-60 max-h-[calc(100vh-8rem)] overflow-y-auto">
         <div
           className="backdrop-blur-sm rounded-lg p-4 shadow-sm"
           style={{
