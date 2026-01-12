@@ -7,6 +7,8 @@ import { HeadingExample } from "./components/examples/HeadingExample";
 import { TextareaExample } from "./components/examples/TextareaExample";
 import { DoubleClickMode } from "./components/examples/DoubleClickMode";
 import { CustomStyling } from "./components/examples/EditableMessage";
+import { AsyncSaveExample } from "./components/examples/AsyncSaveExample";
+import { AsyncSaveWithProgrammaticExit } from "./components/examples/AsyncSaveWithProgrammaticExit";
 import { DocsNav } from "./components/DocsNav";
 import { Hero } from "./components/docs/Hero";
 import { Installation } from "./components/docs/Installation";
@@ -34,6 +36,11 @@ const navSections = [
       { id: "textarea-example", label: "Textarea Example" },
       { id: "double-click-mode", label: "Double Click Mode" },
       { id: "custom-styling", label: "Custom Styling" },
+      { id: "async-save-example", label: "Async Save" },
+      {
+        id: "async-save-programmatic-exit",
+        label: "Async Save (Programmatic Exit)",
+      },
     ],
   },
   {
@@ -96,6 +103,17 @@ function App() {
 
             <section id="custom-styling" className="example-section">
               <CustomStyling />
+            </section>
+
+            <section id="async-save-example" className="example-section">
+              <AsyncSaveExample />
+            </section>
+
+            <section
+              id="async-save-programmatic-exit"
+              className="example-section"
+            >
+              <AsyncSaveWithProgrammaticExit />
             </section>
           </div>
         </section>
