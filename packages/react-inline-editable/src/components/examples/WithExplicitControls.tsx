@@ -13,7 +13,7 @@ export function WithExplicitControls() {
       </p>
       <div className="example-interactive">
         <InlineEditable
-          onSave={(newValue) => {
+          onSave={(newValue, _helpers) => {
             console.log("Saved:", newValue);
             prevValue.current = newValue;
           }}
