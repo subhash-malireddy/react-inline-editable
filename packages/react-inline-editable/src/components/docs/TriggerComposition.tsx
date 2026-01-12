@@ -1,22 +1,27 @@
 export function TriggerComposition() {
   return (
     <section id="trigger-composition" className="mb-16">
-      <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--color-rust-dark)" }}>
+      <h2
+        className="text-2xl font-bold mb-4"
+        style={{ color: "var(--color-rust-dark)" }}
+      >
         Trigger Composition Patterns
       </h2>
       <div className="space-y-6" style={{ color: "var(--color-text-muted)" }}>
         <p>
-          The trigger components support the <code className="text-sm">as</code> and{" "}
-          <code className="text-sm">asChild</code> props for maximum composition flexibility.
+          The trigger components support the <code className="text-sm">as</code>{" "}
+          and <code className="text-sm">asChild</code> props for maximum
+          composition flexibility.
         </p>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--color-text)" }}>
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: "var(--color-text)" }}
+          >
             Using <code className="text-sm">as</code> prop
           </h3>
-          <p className="mb-3">
-            Render triggers as different HTML elements:
-          </p>
+          <p className="mb-3">Render triggers as different HTML elements:</p>
           <pre
             className="p-4 rounded-md overflow-x-auto"
             style={{
@@ -32,12 +37,13 @@ export function TriggerComposition() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--color-text)" }}>
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: "var(--color-text)" }}
+          >
             Icon Buttons
           </h3>
-          <p className="mb-3">
-            Combine triggers with icons for compact UI:
-          </p>
+          <p className="mb-3">Combine triggers with icons for compact UI:</p>
           <pre
             className="p-4 rounded-md overflow-x-auto"
             style={{
@@ -58,7 +64,10 @@ export function TriggerComposition() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--color-text)" }}>
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: "var(--color-text)" }}
+          >
             Custom Edit Button
           </h3>
           <p className="mb-3">
@@ -87,11 +96,22 @@ export function TriggerComposition() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: "var(--color-text)" }}>
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: "var(--color-text)" }}
+          >
             Explicit Controls Only
           </h3>
           <p className="mb-3">
             Disable automatic deactivation and require explicit save/cancel:
+          </p>
+          <p className="mb-3" style={{ color: "var(--color-rust-dark)" }}>
+            <strong>⚠️ Important:</strong> When using external triggers
+            (SaveTrigger/CancelTrigger), you <strong>must</strong> set{" "}
+            <code className="text-sm">{'deactivationMode={["none"]}'}</code>.
+            Without this, clicking the trigger button can cause the input to
+            blur, which may trigger onSave again and create race conditions,
+            especially with async save operations.
           </p>
           <pre
             className="p-4 rounded-md overflow-x-auto"

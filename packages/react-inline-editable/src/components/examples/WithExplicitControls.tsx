@@ -9,7 +9,10 @@ export function WithExplicitControls() {
       <h3>With Explicit Controls</h3>
       <p>
         Use explicit Save and Cancel buttons. Blur and Escape do not exit write
-        mode.
+        mode. <strong>Note:</strong>{" "}
+        <code>{'deactivationMode={["none"]}'}</code> is required when using
+        external triggers to prevent blur events from triggering onSave again,
+        which can cause race conditions.
       </p>
       <div className="example-interactive">
         <InlineEditable
@@ -27,7 +30,9 @@ export function WithExplicitControls() {
           onExitWriteMode={() => console.log("Exited write mode")}
         >
           <InlineEditable.Preview>{value}</InlineEditable.Preview>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+          >
             <InlineEditable.Write
               name="explicit-controls-text"
               value={value}
@@ -46,7 +51,8 @@ export function WithExplicitControls() {
                   e.currentTarget.style.color = "white";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "var(--color-cream-dark)";
+                  e.currentTarget.style.backgroundColor =
+                    "var(--color-cream-dark)";
                   e.currentTarget.style.color = "var(--color-text)";
                 }}
               >
@@ -62,7 +68,8 @@ export function WithExplicitControls() {
                   e.currentTarget.style.backgroundColor = "var(--color-rust)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "var(--color-rust-dark)";
+                  e.currentTarget.style.backgroundColor =
+                    "var(--color-rust-dark)";
                 }}
               >
                 Save
