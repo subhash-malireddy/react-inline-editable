@@ -16,6 +16,7 @@ For package details, installation instructions, and usage examples, see the [pac
 
 ## 🚀 Quick Links
 
+- [npm Package](https://www.npmjs.com/package/@progressive-villager/react-inline-editable)
 - [Package README](./packages/react-inline-editable/README.md)
 - [Documentation Site](https://subhash-malireddy.github.io/react-inline-editable/)
 - [GitHub Repository](https://github.com/subhash-malireddy/react-inline-editable)
