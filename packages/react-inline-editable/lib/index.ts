@@ -11,4 +11,8 @@ export type {
   EditElement,
 } from "./types";
 
-export type { InlineEditHelpers } from "./useInlineEdit";
+export type {
+  InlineEditHelpers,
+  UseInlineEditOptions,
+  UseInlineEditReturn,
+} from "./useInlineEdit";

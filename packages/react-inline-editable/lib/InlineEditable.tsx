@@ -67,7 +67,7 @@ function Preview<T extends PreviewElement = "span">({
   activationMode = DEFAULT_ACTIVATION_MODES,
   ...props
 }: InlineEditPreviewProps<T>) {
-  const { isEditing, enterWriteMode } = useInlineEditContext();
+  const { isEditing, enterWriteMode, previewRef } = useInlineEditContext();
 
   if (isEditing) {
     return null;
@@ -89,7 +89,11 @@ function Preview<T extends PreviewElement = "span">({
 
   // Build props based on activation modes
   const { onClick, onDoubleClick, onKeyDown, tabIndex, ...restProps } = props;
-  const computedProps: Record<string, unknown> = { ...restProps };
+
+  const computedProps: Record<string, unknown> = {
+    ...restProps,
+    ref: previewRef,
+  };
 
   if (modes.has("click")) {
     computedProps.onClick = composeHandler(onClick, enterWriteMode);
@@ -169,7 +173,7 @@ function Write<T extends EditElement = "input">({
   deactivationMode,
   ...props
 }: InlineEditWriteProps<T>) {
-  const { isEditing, save, cancel, setInputRef } = useInlineEditContext();
+  const { isEditing, save, cancel, writeRef } = useInlineEditContext();
 
   const Component = as || "input";
   const isTextarea = Component === "textarea";
@@ -181,16 +185,6 @@ function Write<T extends EditElement = "input">({
       ? DEFAULT_DEACTIVATION_MODES_TEXTAREA
       : DEFAULT_DEACTIVATION_MODES_INPUT);
   const modes = new Set(resolvedModes);
-
-  // Callback ref for auto-focus and connecting to context
-  const refCallback = (
-    element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
-  ) => {
-    setInputRef(element);
-    if (element) {
-      element.focus();
-    }
-  };
 
   if (!isEditing) {
     return null;
@@ -235,7 +229,7 @@ function Write<T extends EditElement = "input">({
   return createElement(Component as ElementType, {
     ...props,
     ...valueProps,
-    ref: refCallback,
+    ref: writeRef,
     onKeyDown: handleKeyDown,
     onBlur: handleBlur,
   });
@@ -257,13 +251,10 @@ function EditTrigger<T extends TriggerElement = "button">({
   as,
   children,
   onClick,
+  style,
   ...props
 }: TriggerProps<T>) {
   const { isEditing, enterWriteMode } = useInlineEditContext();
-
-  if (isEditing) {
-    return null;
-  }
 
   const Component = as || "button";
 
@@ -272,9 +263,11 @@ function EditTrigger<T extends TriggerElement = "button">({
     enterWriteMode();
   };
 
+  const computedStyle = isEditing ? { ...style, display: "none" } : style;
+
   return createElement(
     Component as ElementType,
-    { ...props, onClick: handleClick },
+    { ...props, onClick: handleClick, style: computedStyle },
     children
   );
 }
