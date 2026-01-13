@@ -9,6 +9,9 @@ import { DoubleClickMode } from "./components/examples/DoubleClickMode";
 import { CustomStyling } from "./components/examples/EditableMessage";
 import { AsyncSaveExample } from "./components/examples/AsyncSaveExample";
 import { AsyncSaveWithProgrammaticExit } from "./components/examples/AsyncSaveWithProgrammaticExit";
+import { DisabledExample } from "./components/examples/DisabledExample";
+import { SelectAllOnFocusExample } from "./components/examples/SelectAllOnFocusExample";
+import { DefaultIsEditingExample } from "./components/examples/DefaultIsEditingExample";
 import { DocsNav } from "./components/DocsNav";
 import { Hero } from "./components/docs/Hero";
 import { Installation } from "./components/docs/Installation";
@@ -35,6 +38,9 @@ const navSections = [
       { id: "heading-example", label: "Heading Example" },
       { id: "textarea-example", label: "Textarea Example" },
       { id: "double-click-mode", label: "Double Click Mode" },
+      { id: "disabled-example", label: "Disabled State" },
+      { id: "select-all-on-focus", label: "Select All On Focus" },
+      { id: "default-is-editing", label: "Default Is Editing" },
       { id: "custom-styling", label: "Custom Styling" },
       { id: "async-save-example", label: "Async Save" },
       {
@@ -99,6 +105,18 @@ function App() {
 
             <section id="double-click-mode" className="example-section">
               <DoubleClickMode />
+            </section>
+
+            <section id="disabled-example" className="example-section">
+              <DisabledExample />
+            </section>
+
+            <section id="select-all-on-focus" className="example-section">
+              <SelectAllOnFocusExample />
+            </section>
+
+            <section id="default-is-editing" className="example-section">
+              <DefaultIsEditingExample />
             </section>
 
             <section id="custom-styling" className="example-section">
