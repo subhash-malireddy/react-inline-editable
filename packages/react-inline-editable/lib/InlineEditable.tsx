@@ -84,7 +84,9 @@ function Preview<T extends PreviewElement = "span">({
   ) => {
     return (e: E) => {
       userHandler?.(e);
-      externalHandler();
+      if (!isDisabled) {
+        externalHandler();
+      }
     };
   };
 
@@ -96,42 +98,35 @@ function Preview<T extends PreviewElement = "span">({
     ref: previewRef,
   };
 
-  // Don't attach activation handlers if disabled
-  if (isDisabled) {
+  if (modes.has("click")) {
+    computedProps.onClick = composeHandler(onClick, enterWriteMode);
+  } else {
     computedProps.onClick = onClick;
+  }
+
+  if (modes.has("dblclick")) {
+    computedProps.onDoubleClick = composeHandler(onDoubleClick, enterWriteMode);
+  } else {
     computedProps.onDoubleClick = onDoubleClick;
+  }
+
+  if (modes.has("enter")) {
+    computedProps.onKeyDown = (e: KeyboardEvent) => {
+      onKeyDown?.(e);
+      if (!isDisabled && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        enterWriteMode();
+      }
+    };
+    // Make focusable for keyboard navigation, unless disabled
+    computedProps.tabIndex = isDisabled ? -1 : tabIndex ?? 0;
+  } else {
     computedProps.onKeyDown = onKeyDown;
     computedProps.tabIndex = tabIndex;
-  } else {
-    if (modes.has("click")) {
-      computedProps.onClick = composeHandler(onClick, enterWriteMode);
-    } else {
-      computedProps.onClick = onClick;
-    }
+  }
 
-    if (modes.has("dblclick")) {
-      computedProps.onDoubleClick = composeHandler(
-        onDoubleClick,
-        enterWriteMode
-      );
-    } else {
-      computedProps.onDoubleClick = onDoubleClick;
-    }
-
-    if (modes.has("enter")) {
-      computedProps.onKeyDown = (e: KeyboardEvent) => {
-        onKeyDown?.(e);
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          enterWriteMode();
-        }
-      };
-      // Make focusable for keyboard navigation
-      computedProps.tabIndex = tabIndex ?? 0;
-    } else {
-      computedProps.onKeyDown = onKeyDown;
-      computedProps.tabIndex = tabIndex;
-    }
+  if (isDisabled) {
+    computedProps["aria-disabled"] = "true";
   }
 
   return createElement(Component as ElementType, computedProps, children);
