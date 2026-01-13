@@ -32,6 +32,20 @@ export function APIReference() {
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
+                <code className="text-sm">defaultIsEditing?: boolean</code> -
+                Whether to start in edit mode (default: false)
+              </li>
+              <li>
+                <code className="text-sm">selectAllOnFocus?: boolean</code> -
+                Whether to automatically select all text when entering edit mode
+                (default: false)
+              </li>
+              <li>
+                <code className="text-sm">isDisabled?: boolean</code> - Whether
+                the inline edit is disabled. When true, prevents entering edit
+                mode and makes the component un-interactive (default: false)
+              </li>
+              <li>
                 <code className="text-sm">
                   onEnterWriteMode?: () =&gt; void
                 </code>{" "}
@@ -239,37 +253,6 @@ export function APIReference() {
             <code className="text-sm">className</code> and{" "}
             <code className="text-sm">style</code> props.
           </p>
-        </div>
-
-        {/* Types */}
-        <div>
-          <h3
-            className="text-xl font-semibold mb-3"
-            style={{ color: "var(--color-text)" }}
-          >
-            Types
-          </h3>
-          <div className="space-y-3">
-            <div>
-              <code className="text-sm">ActivationMode</code> ={" "}
-              <code className="text-sm">
-                "click" | "dblclick" | "enter" | "none"
-              </code>
-            </div>
-            <div>
-              <code className="text-sm">DeactivationMode</code> ={" "}
-              <code className="text-sm">
-                "blur" | "esc" | "enter" | "cmd+enter" | "none"
-              </code>
-            </div>
-            <div>
-              <code className="text-sm">InlineEditHelpers</code> ={" "}
-              <code className="text-sm">
-                {"{ exitWriteMode: () => void, cancel: () => void }"}
-              </code>{" "}
-              - Helper methods passed to onSave callback
-            </div>
-          </div>
         </div>
       </div>
     </section>

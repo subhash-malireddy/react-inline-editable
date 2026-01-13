@@ -156,7 +156,7 @@ function App() {
       </main>
 
       <footer className="mt-16 pt-8 border-t border-border text-text-muted text-sm">
-        <p>Built with zero external dependencies. MIT License.</p>
+        <p>MIT License.</p>
       </footer>
 
       <DocsNav sections={navSections} />
