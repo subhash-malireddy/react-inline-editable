@@ -12,7 +12,9 @@ export function HeadingExample() {
         input replaces the heading when editing.
       </p>
       <div className="example-interactive">
-        <InlineEditable onSave={() => console.log("Heading saved:", title)}>
+        <InlineEditable
+          onSave={(_, _helpers) => console.log("Heading saved:", title)}
+        >
           <InlineEditable.Preview
             as="h4"
             style={{ margin: 0, fontSize: "1em", fontFamily: "sans-serif" }}

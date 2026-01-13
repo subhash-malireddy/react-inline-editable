@@ -66,7 +66,7 @@ export function CustomStyling() {
           }}
         >
           <InlineEditable
-            onSave={(newValue) => {
+            onSave={(newValue, _helpers) => {
               console.log("Message updated:", newValue);
               setMessage(newValue);
             }}

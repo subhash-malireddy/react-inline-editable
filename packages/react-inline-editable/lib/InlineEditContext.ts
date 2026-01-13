@@ -1,21 +1,7 @@
 import { createContext, useContext } from "react";
+import type { UseInlineEditReturn } from "./useInlineEdit";
 
-export interface InlineEditContextValue {
-  /** Whether currently in write mode */
-  isEditing: boolean;
-  /** Enter write mode */
-  enterWriteMode: () => void;
-  /** Exit write mode (no save/cancel action) */
-  exitWriteMode: () => void;
-  /** Save changes and exit write mode */
-  save: () => void;
-  /** Cancel changes and exit write mode */
-  cancel: () => void;
-  /** Ref callback to attach to the editable input */
-  setInputRef: (
-    element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null
-  ) => void;
-}
+export type InlineEditContextValue = UseInlineEditReturn;
 
 const InlineEditContext = createContext<InlineEditContextValue | null>(null);
 

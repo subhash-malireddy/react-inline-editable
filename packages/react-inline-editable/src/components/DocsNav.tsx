@@ -34,35 +34,34 @@ export function DocsNav({ sections }: DocsNavProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Close mobile menu when clicking outside
+  // Close mobile menu on escape key
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape" && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     }
 
     if (isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.removeEventListener("keydown", handleEscape);
+        document.body.style.overflow = "";
+      };
     }
   }, [isMobileMenuOpen]);
 
   const handleNavClick = (id: string) => {
     scrollToSection(id);
-    // Menu stays open - user can click outside or toggle button to close
+    setIsMobileMenuOpen(false); // Close menu after navigation
   };
 
   return (
     <>
       {/* Desktop Navigation - Fixed on the right */}
-      <nav className="hidden lg:block fixed top-24 right-8 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto">
+      <nav className="hidden lg:block fixed top-24 right-8 w-60 max-h-[calc(100vh-8rem)] overflow-y-auto">
         <div
           className="backdrop-blur-sm rounded-lg p-4 shadow-sm"
           style={{
@@ -157,27 +156,68 @@ export function DocsNav({ sections }: DocsNavProps) {
         )}
       </button>
 
-      {/* Mobile Popover Menu */}
+      {/* Mobile Backdrop */}
       {isMobileMenuOpen && (
         <div
-          ref={menuRef}
-          className="lg:hidden fixed bottom-24 right-6 z-40 w-64 rounded-lg shadow-xl p-4 max-h-[calc(100vh-8rem)] overflow-y-auto"
+          className="lg:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Slide-in Drawer */}
+      <div
+        className={`lg:hidden fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] transform transition-transform duration-300 ease-in-out ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        ref={menuRef}
+      >
+        <div
+          className="h-full overflow-y-auto p-6 shadow-xl"
           style={{
             backgroundColor: "var(--color-cream-dark)",
-            border: "1px solid var(--color-border)",
+            borderLeft: "1px solid var(--color-border)",
           }}
         >
-          <h2
-            className="text-sm font-semibold mb-3 uppercase tracking-wide whitespace-nowrap"
-            style={{ color: "var(--color-rust-dark)" }}
-          >
-            On this page
-          </h2>
-          <div className="space-y-4">
+          <div className="flex items-center justify-between mb-6">
+            <h2
+              className="text-sm font-semibold uppercase tracking-wide"
+              style={{ color: "var(--color-rust-dark)" }}
+            >
+              On this page
+            </h2>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-md transition-colors"
+              style={{ color: "var(--color-text-muted)" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "var(--color-text)";
+                e.currentTarget.style.backgroundColor = "var(--color-cream)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "var(--color-text-muted)";
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+              aria-label="Close menu"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+          <div className="space-y-6">
             {sections.map((section) => (
               <div key={section.title}>
                 <h3
-                  className="text-xs font-semibold mb-2 uppercase tracking-wide"
+                  className="text-xs font-semibold mb-3 uppercase tracking-wide"
                   style={{ color: "var(--color-text-muted)" }}
                 >
                   {section.title}
@@ -209,7 +249,7 @@ export function DocsNav({ sections }: DocsNavProps) {
             ))}
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

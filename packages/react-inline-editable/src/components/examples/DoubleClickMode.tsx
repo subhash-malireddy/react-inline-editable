@@ -13,7 +13,9 @@ export function DoubleClickMode() {
         accessibility.
       </p>
       <div className="example-interactive">
-        <InlineEditable onSave={() => console.log("Saved:", value)}>
+        <InlineEditable
+          onSave={(_, _helpers) => console.log("Saved:", value)}
+        >
           <InlineEditable.Preview activationMode={["dblclick", "enter"]}>
             {value}
           </InlineEditable.Preview>

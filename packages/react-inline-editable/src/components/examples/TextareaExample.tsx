@@ -14,7 +14,9 @@ export function TextareaExample() {
         inserts newlines, Cmd/Ctrl+Enter saves.
       </p>
       <div className="example-interactive">
-        <InlineEditable onSave={() => console.log("Saved:", value)}>
+        <InlineEditable
+          onSave={(_, _helpers) => console.log("Saved:", value)}
+        >
           <InlineEditable.Preview
             style={{ whiteSpace: "pre-wrap", display: "block" }}
           >

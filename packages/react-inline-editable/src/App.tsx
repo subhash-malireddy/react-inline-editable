@@ -7,6 +7,11 @@ import { HeadingExample } from "./components/examples/HeadingExample";
 import { TextareaExample } from "./components/examples/TextareaExample";
 import { DoubleClickMode } from "./components/examples/DoubleClickMode";
 import { CustomStyling } from "./components/examples/EditableMessage";
+import { AsyncSaveExample } from "./components/examples/AsyncSaveExample";
+import { AsyncSaveWithProgrammaticExit } from "./components/examples/AsyncSaveWithProgrammaticExit";
+import { DisabledExample } from "./components/examples/DisabledExample";
+import { SelectAllOnFocusExample } from "./components/examples/SelectAllOnFocusExample";
+import { DefaultIsEditingExample } from "./components/examples/DefaultIsEditingExample";
 import { DocsNav } from "./components/DocsNav";
 import { Hero } from "./components/docs/Hero";
 import { Installation } from "./components/docs/Installation";
@@ -33,7 +38,15 @@ const navSections = [
       { id: "heading-example", label: "Heading Example" },
       { id: "textarea-example", label: "Textarea Example" },
       { id: "double-click-mode", label: "Double Click Mode" },
+      { id: "disabled-example", label: "Disabled State" },
+      { id: "select-all-on-focus", label: "Select All On Focus" },
+      { id: "default-is-editing", label: "Default Is Editing" },
       { id: "custom-styling", label: "Custom Styling" },
+      { id: "async-save-example", label: "Async Save" },
+      {
+        id: "async-save-programmatic-exit",
+        label: "Async Save (Programmatic Exit)",
+      },
     ],
   },
   {
@@ -94,8 +107,31 @@ function App() {
               <DoubleClickMode />
             </section>
 
+            <section id="disabled-example" className="example-section">
+              <DisabledExample />
+            </section>
+
+            <section id="select-all-on-focus" className="example-section">
+              <SelectAllOnFocusExample />
+            </section>
+
+            <section id="default-is-editing" className="example-section">
+              <DefaultIsEditingExample />
+            </section>
+
             <section id="custom-styling" className="example-section">
               <CustomStyling />
+            </section>
+
+            <section id="async-save-example" className="example-section">
+              <AsyncSaveExample />
+            </section>
+
+            <section
+              id="async-save-programmatic-exit"
+              className="example-section"
+            >
+              <AsyncSaveWithProgrammaticExit />
             </section>
           </div>
         </section>
@@ -120,7 +156,7 @@ function App() {
       </main>
 
       <footer className="mt-16 pt-8 border-t border-border text-text-muted text-sm">
-        <p>Built with zero external dependencies. MIT License.</p>
+        <p>MIT License.</p>
       </footer>
 
       <DocsNav sections={navSections} />
