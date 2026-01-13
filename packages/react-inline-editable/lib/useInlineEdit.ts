@@ -16,7 +16,33 @@ export interface UseInlineEditOptions {
   defaultIsEditing?: boolean;
   /** Whether to select all text on focus */
   selectAllOnFocus?: boolean;
-  /** Whether the inline edit is disabled (prevents entering edit mode and makes it un-interactive) */
+  /**
+   * Whether the inline edit is disabled (prevents entering edit mode and makes it un-interactive)
+   *
+   * When disabled:
+   * - Preview elements cannot activate edit mode
+   * - EditTrigger becomes disabled
+   * - Interactive previews are removed from keyboard tab order
+   * - Appropriate ARIA attributes are added for screen readers
+   *
+   * Note: Visual styling of the disabled state is your responsibility.
+   * Use CSS to target button[disabled] or [aria-disabled="true"] if the component is not a button.
+   *
+   * @example
+   * // Style disabled state with CSS
+   * [aria-disabled="true"] {
+   *   opacity: 0.5;
+   *   cursor: not-allowed;
+   * }
+   *
+   * @example
+   * // Or conditionally in JSX
+   * <InlineEditable isDisabled={isLoading}>
+   *   <InlineEditable.Preview className={isLoading ? 'opacity-50' : ''}>
+   *     {text}
+   *   </InlineEditable.Preview>
+   * </InlineEditable>
+   */
   isDisabled?: boolean;
   /**
    * Callback when entering write mode.
