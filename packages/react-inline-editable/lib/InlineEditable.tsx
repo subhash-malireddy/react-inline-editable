@@ -274,15 +274,23 @@ function EditTrigger<T extends TriggerElement = "button">({
 
   const computedStyle = isEditing ? { ...style, display: "none" } : style;
 
-  // Disable the button when the inline edit is disabled
-  const computedProps = {
-    ...props,
-    onClick: handleClick,
-    style: computedStyle,
-    disabled: isDisabled || (props as { disabled?: boolean }).disabled,
-  };
+  const accessibilityProps =
+    Component === "button"
+      ? { disabled: isDisabled }
+      : isDisabled
+      ? { "aria-disabled": "true" }
+      : {};
 
-  return createElement(Component as ElementType, computedProps, children);
+  return createElement(
+    Component as ElementType,
+    {
+      ...props,
+      ...accessibilityProps,
+      onClick: handleClick,
+      style: computedStyle,
+    },
+    children
+  );
 }
 
 // ============================================================================
