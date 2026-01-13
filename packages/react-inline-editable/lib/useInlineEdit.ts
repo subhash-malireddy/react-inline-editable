@@ -16,6 +16,8 @@ export interface UseInlineEditOptions {
   defaultIsEditing?: boolean;
   /** Whether to select all text on focus */
   selectAllOnFocus?: boolean;
+  /** Whether the inline edit is disabled (prevents entering edit mode and makes it un-interactive) */
+  isDisabled?: boolean;
   /**
    * Callback when entering write mode.
    * Use cases: focus management, disable other UI elements, track analytics.
@@ -73,6 +75,8 @@ export interface UseInlineEditOptions {
 export interface UseInlineEditReturn {
   /** Whether currently in write mode */
   isEditing: boolean;
+  /** Whether the inline edit is disabled */
+  isDisabled: boolean;
   /** Enter write mode */
   enterWriteMode: () => void;
   /** Exit write mode (no save/cancel action) */
@@ -108,6 +112,7 @@ export function useInlineEdit(
   const {
     defaultIsEditing = false,
     selectAllOnFocus = false,
+    isDisabled = false,
     onEnterWriteMode,
     onExitWriteMode,
     onSave,
@@ -136,13 +141,17 @@ export function useInlineEdit(
   }, [isEditing, selectAllOnFocus]);
 
   const enterWriteMode = useCallback(() => {
+    // Don't allow entering edit mode when disabled
+    if (isDisabled) {
+      return;
+    }
     // Store the element that currently has focus
     // This could be Preview, EditTrigger, or something else (programmatic)
     previouslyFocusedElementRef.current =
       document.activeElement as HTMLElement | null;
     setIsEditing(true);
     onEnterWriteMode?.();
-  }, [onEnterWriteMode]);
+  }, [isDisabled, onEnterWriteMode]);
 
   const exitWriteMode = useCallback(() => {
     setIsEditing(false);
@@ -189,6 +198,7 @@ export function useInlineEdit(
 
   return {
     isEditing,
+    isDisabled,
     enterWriteMode,
     exitWriteMode,
     save,

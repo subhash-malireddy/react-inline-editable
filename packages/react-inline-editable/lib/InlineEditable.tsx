@@ -67,7 +67,8 @@ function Preview<T extends PreviewElement = "span">({
   activationMode = DEFAULT_ACTIVATION_MODES,
   ...props
 }: InlineEditPreviewProps<T>) {
-  const { isEditing, enterWriteMode, previewRef } = useInlineEditContext();
+  const { isEditing, isDisabled, enterWriteMode, previewRef } =
+    useInlineEditContext();
 
   if (isEditing) {
     return null;
@@ -95,31 +96,42 @@ function Preview<T extends PreviewElement = "span">({
     ref: previewRef,
   };
 
-  if (modes.has("click")) {
-    computedProps.onClick = composeHandler(onClick, enterWriteMode);
-  } else {
+  // Don't attach activation handlers if disabled
+  if (isDisabled) {
     computedProps.onClick = onClick;
-  }
-
-  if (modes.has("dblclick")) {
-    computedProps.onDoubleClick = composeHandler(onDoubleClick, enterWriteMode);
-  } else {
     computedProps.onDoubleClick = onDoubleClick;
-  }
-
-  if (modes.has("enter")) {
-    computedProps.onKeyDown = (e: KeyboardEvent) => {
-      onKeyDown?.(e);
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        enterWriteMode();
-      }
-    };
-    // Make focusable for keyboard navigation
-    computedProps.tabIndex = tabIndex ?? 0;
-  } else {
     computedProps.onKeyDown = onKeyDown;
     computedProps.tabIndex = tabIndex;
+  } else {
+    if (modes.has("click")) {
+      computedProps.onClick = composeHandler(onClick, enterWriteMode);
+    } else {
+      computedProps.onClick = onClick;
+    }
+
+    if (modes.has("dblclick")) {
+      computedProps.onDoubleClick = composeHandler(
+        onDoubleClick,
+        enterWriteMode
+      );
+    } else {
+      computedProps.onDoubleClick = onDoubleClick;
+    }
+
+    if (modes.has("enter")) {
+      computedProps.onKeyDown = (e: KeyboardEvent) => {
+        onKeyDown?.(e);
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          enterWriteMode();
+        }
+      };
+      // Make focusable for keyboard navigation
+      computedProps.tabIndex = tabIndex ?? 0;
+    } else {
+      computedProps.onKeyDown = onKeyDown;
+      computedProps.tabIndex = tabIndex;
+    }
   }
 
   return createElement(Component as ElementType, computedProps, children);
@@ -173,7 +185,8 @@ function Write<T extends EditElement = "input">({
   deactivationMode,
   ...props
 }: InlineEditWriteProps<T>) {
-  const { isEditing, save, cancel, writeRef } = useInlineEditContext();
+  const { isEditing, isDisabled, save, cancel, writeRef } =
+    useInlineEditContext();
 
   const Component = as || "input";
   const isTextarea = Component === "textarea";
@@ -232,6 +245,7 @@ function Write<T extends EditElement = "input">({
     ref: writeRef,
     onKeyDown: handleKeyDown,
     onBlur: handleBlur,
+    disabled: isDisabled || (props as { disabled?: boolean }).disabled,
   });
 }
 
@@ -254,7 +268,7 @@ function EditTrigger<T extends TriggerElement = "button">({
   style,
   ...props
 }: TriggerProps<T>) {
-  const { isEditing, enterWriteMode } = useInlineEditContext();
+  const { isEditing, isDisabled, enterWriteMode } = useInlineEditContext();
 
   const Component = as || "button";
 
@@ -265,11 +279,15 @@ function EditTrigger<T extends TriggerElement = "button">({
 
   const computedStyle = isEditing ? { ...style, display: "none" } : style;
 
-  return createElement(
-    Component as ElementType,
-    { ...props, onClick: handleClick, style: computedStyle },
-    children
-  );
+  // Disable the button when the inline edit is disabled
+  const computedProps = {
+    ...props,
+    onClick: handleClick,
+    style: computedStyle,
+    disabled: isDisabled || (props as { disabled?: boolean }).disabled,
+  };
+
+  return createElement(Component as ElementType, computedProps, children);
 }
 
 // ============================================================================
