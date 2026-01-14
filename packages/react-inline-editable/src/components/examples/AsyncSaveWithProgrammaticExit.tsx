@@ -34,7 +34,7 @@ function showToast(message: string) {
 
 export function AsyncSaveWithProgrammaticExit() {
   const [value, setValue] = useState(
-    "Click to edit (try typing 'error' to see programmatic exit)"
+    "Click to edit (remove 'error' from the value to successfully save)"
   );
   const [isSaving, setIsSaving] = useState(false);
 
