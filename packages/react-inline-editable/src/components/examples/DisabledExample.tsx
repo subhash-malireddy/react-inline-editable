@@ -20,11 +20,14 @@ export function DisabledExample() {
 
       <div className="example-interactive">
         <div style={{ marginBottom: "1rem" }}>
-          <label style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <label
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+          >
             <input
               type="checkbox"
               checked={isDisabled}
               onChange={(e) => setIsDisabled(e.target.checked)}
+              style={{ width: "unset" }}
             />
             <span>Disable editing</span>
           </label>
