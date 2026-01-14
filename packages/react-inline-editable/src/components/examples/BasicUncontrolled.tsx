@@ -1,12 +1,9 @@
 import { InlineEditable } from "@/index";
-import { useState } from "react";
+
+//consider that this value comes from the server or as a prop
+let displayValue = "Click to edit (uncontrolled)";
 
 export function BasicUncontrolled() {
-  // Only track the committed value for display
-  const [displayValue, setDisplayValue] = useState(
-    "Click to edit (uncontrolled)"
-  );
-
   return (
     <div>
       <h3>Basic Uncontrolled</h3>
@@ -18,7 +15,7 @@ export function BasicUncontrolled() {
         <InlineEditable
           onSave={(newValue, _helpers) => {
             console.log("Saved:", newValue);
-            setDisplayValue(newValue);
+            displayValue = newValue;
           }}
         >
           <InlineEditable.Preview>{displayValue}</InlineEditable.Preview>
