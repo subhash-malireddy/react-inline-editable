@@ -125,3 +125,9 @@ pre {
     min-width: 42rem;
   }
 }
+
+input,
+select,
+textarea {
+  @apply border border-border rounded-md p-2 w-full;
+}
