@@ -22,6 +22,7 @@ yarn add @progressive-villager/react-inline-editable
 
 ## Quick Start
 
+### Controlled
 ```tsx
 import { InlineEditable } from "@progressive-villager/react-inline-editable";
 
@@ -34,6 +35,30 @@ function App() {
       <InlineEditable.Write
         value={value}
         onChange={(e) => setValue(e.target.value)}
+      />
+    </InlineEditable>
+  );
+}
+```
+### Uncontrolled
+```tsx
+import { InlineEditable } from "@progressive-villager/react-inline-editable";
+
+async function saveToServer(value: string): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
+  // Simulate success
+  console.log("Saved to server:", value);
+  return value;
+}
+
+const defaultValue = "value from server or a prop";
+
+function App() {
+  return (
+    <InlineEditable onSave={saveToServer}>
+      <InlineEditable.Preview>{defaultValue}</InlineEditable.Preview>
+      <InlineEditable.Write
+        defaultvalue={defaultValue}
       />
     </InlineEditable>
   );
